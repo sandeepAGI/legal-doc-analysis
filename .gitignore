@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+.env
+.venv/
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Model and data directories
+/models/
+*/models/
+data/
+*/data/
+chroma_store/
+*/chroma_store/
+*.pdf
+
+# Streamlit cache
+.streamlit/
+
+# Misc
+*.sqlite3
+*.db
+*.pkl
