@@ -25,5 +25,5 @@ def create_vectorstore(embedder, chunks, persist_dir="chroma_store"):
     # Build and return the vectorstore
     return Chroma.from_documents(docs, embedding=embedder, persist_directory=persist_dir)
 
-def query_vectorstore(vectordb, query, k=5):
+def query_vectorstore(vectordb, query, k=10):
     return vectordb.similarity_search_with_score(query, k=k)

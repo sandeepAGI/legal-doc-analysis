@@ -49,7 +49,7 @@ if uploaded_file and query:
             persist_dir="chroma_store"
         )
         # Query vector store
-        retrieved = query_vectorstore(vectordb, query, k=5)
+        retrieved = query_vectorstore(vectordb, query, k=10)
 
         # Synthesize answer using LLM
         answer = synthesize_answer(query, retrieved)

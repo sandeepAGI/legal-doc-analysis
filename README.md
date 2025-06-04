@@ -34,26 +34,52 @@ doc-analysis/
 - ✅ Metadata-aware display of chunks in response view:
   - Chunk #
   - Similarity Score
-  - Page
   - Section
 - ✅ Clean toggle and storage separation for vector stores
 - ✅ Error-handling and diagnostics for model compatibility and Chroma issues
 
 ---
 
-## ⚠️ Features NOT Yet Implemented (Next Steps)
+## ⚠️ Critical Retrieval Issues & Next Steps
 
-1. ❌ **Prompt flexibility (double-check mode)**  
-   While `prompts.py` includes a double-check prompt, the toggle and logic for switching between the default and verification prompts is not yet wired into `llm_wrapper.py` or `app.py`.
+### 🔴 High Priority - Retrieval Robustness
+1. ❌ **Persistent vector store management**  
+   Currently creates new UUID collection each run (app.py:43), preventing reuse and wasting computation. Need document-based collection naming and reuse logic.
 
-2. ❌ **Support for different document types**  
-   Current assumptions lean heavily on legal rulings (e.g., court opinions). Chunk labeling logic may not generalize to motions, filings, or expert opinions.
+2. ❌ **Adaptive retrieval parameters**  
+   Fixed k=10 retrieval (app.py:52) regardless of query complexity. Need dynamic k based on query type and score thresholds for quality filtering.
 
-3. ❌ **Persistent vector store pruning**  
-   Vectorstore directories accumulate; a background cleaner or UI option for stale store removal is pending.
+3. ❌ **Query preprocessing pipeline**  
+   No spell checking, query expansion, or semantic preprocessing. Raw user queries often miss relevant content due to vocabulary mismatches.
 
-4. ❌ **Query logging / batch testing**  
-   No functionality yet for saving and comparing model answers across test suites.
+4. ❌ **Semantic chunking improvements**  
+   Hard character limits (chunker.py:33) break semantic units. Need overlap, sentence boundary awareness, and context preservation.
+
+5. ❌ **Retrieval quality validation**  
+   No similarity score thresholds or result filtering. Poor matches get passed to LLM, degrading answer quality.
+
+### 🟡 Medium Priority - Advanced Features
+6. ❌ **Hybrid search implementation**  
+   Only vector similarity search. Adding BM25/keyword fusion would improve recall for specific terms and names.
+
+7. ❌ **Reranking pipeline**  
+   Retrieved chunks need reranking by query-specific relevance, especially for complex multi-part questions.
+
+8. ❌ **Prompt flexibility (double-check mode)**  
+   While `prompts.py` includes a double-check prompt, the toggle and logic for switching between prompts is not wired into `llm_wrapper.py` or `app.py`.
+
+9. ❌ **Metadata-aware retrieval**  
+   Page/section metadata exists but isn't used for filtering or boosting relevant document sections.
+
+### 🟢 Low Priority - Infrastructure
+10. ❌ **Support for different document types**  
+    Current assumptions lean heavily on legal rulings. Chunk labeling logic may not generalize to motions, filings, or expert opinions.
+
+11. ❌ **Query logging / batch testing**  
+    No functionality yet for saving and comparing model answers across test suites.
+
+12. ❌ **Persistent vector store pruning**  
+    Vectorstore directories accumulate; a background cleaner or UI option for stale store removal is pending.
 
 ---
 
@@ -77,28 +103,70 @@ Then open `http://localhost:8501` in your browser.
 
 ---
 
-## 🧭 Next Steps
+## 🧭 Implementation Roadmap
 
-### 1. Implement Prompt Flexibility
+### Phase 1: Core Retrieval Fixes (Week 1-2)
+**Priority: Fix fundamental retrieval issues**
 
-- Add a checkbox in Streamlit for “Double-check Mode”
-- In `llm_wrapper.py`, modify `synthesize_answer` to select between `QNA_PROMPT_TEMPLATE` and `QNA_DOUBLECHECK_PROMPT_TEMPLATE`
-- Use top-k context aggregation to feed multiple chunks to the LLM
+#### 1.1 Persistent Vector Store Management
+```python
+# In app.py, replace UUID-based naming with document-based:
+doc_hash = hashlib.md5(uploaded_file.read()).hexdigest()[:8]
+collection_name = f"doc_{doc_hash}_{embed_model_option.replace('-', '_')}"
+# Check if collection exists before recreating
+```
 
-### 2. Refine Chunk Labels
+#### 1.2 Adaptive Retrieval Parameters
+```python
+# In vectorstore.py, add smart k selection and score filtering:
+def query_vectorstore(vectordb, query, min_score=0.7, max_k=15):
+    results = vectordb.similarity_search_with_score(query, k=max_k)
+    return [(doc, score) for doc, score in results if score >= min_score]
+```
 
-- Add more resilient section/page detection in `chunker.py`
-- Use regex or headings for better “section” parsing
+#### 1.3 Semantic Chunking Improvements
+```python
+# In chunker.py, add overlap and sentence boundaries:
+def semantic_chunk(text, max_chunk_size=1000, overlap=200):
+    # Use sentence tokenizer, preserve paragraph boundaries
+    # Add sliding window overlap for context preservation
+```
 
-### 3. Add Vectorstore Cleanup Utility
+### Phase 2: Advanced Retrieval (Week 3-4)
+**Priority: Enhance retrieval quality**
 
-- Add a script to prune unused or duplicate Chroma stores
+#### 2.1 Query Preprocessing
+- Add spell correction using `pyspellchecker`
+- Implement query expansion with synonyms
+- Add legal domain-specific term normalization
 
-### 4. Expand Evaluation Suite
+#### 2.2 Hybrid Search Implementation
+- Integrate BM25 keyword search alongside vector similarity
+- Implement score fusion (e.g., RRF - Reciprocal Rank Fusion)
+- Add metadata-based filtering and boosting
 
-- Automate running a batch of predefined queries across all three models
-- Store results and chunk provenance for side-by-side comparison
+#### 2.3 Reranking Pipeline
+- Add cross-encoder reranking for top-k results
+- Implement query-chunk relevance scoring
+- Add diversity-aware result selection
 
+### Phase 3: User Experience (Week 5-6)
+**Priority: Polish and usability**
+
+#### 3.1 Prompt Flexibility Implementation
+- Add Streamlit toggle for double-check mode
+- Wire `DOUBLE_CHECK_PROMPT` into `llm_wrapper.py`
+- Add confidence scoring and uncertainty handling
+
+#### 3.2 Advanced UI Features
+- Show retrieval quality metrics to users
+- Add retrieval parameter controls (k, score thresholds)
+- Implement query suggestion and auto-completion
+
+#### 3.3 Evaluation and Testing
+- Build automated testing suite with ground truth Q&A pairs
+- Add retrieval quality metrics (MRR, NDCG, recall@k)
+- Implement A/B testing framework for retrieval strategies
 ---
 
 ## 👤 Author Notes
