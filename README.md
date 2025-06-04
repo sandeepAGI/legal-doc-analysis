@@ -16,8 +16,13 @@ doc-analysis/
 │   ├── llm_wrapper.py            # LLM prompt and response handler
 │   ├── prompts.py                # Central prompt templates (static)
 │   └── vectorstore.py            # Chroma-based vector DB interface
+├── tests/
+│   ├── test_baseline.py          # Baseline test suite for embedding model comparison
+│   ├── test_pipeline.py          # Pipeline integration tests
+│   └── test_vectorstore_pipeline.py # Vector store specific tests
 ├── download_hf_bbg.py            # Script to fetch BGE models from Hugging Face
 ├── requirements.txt              # Full dependency list
+├── results.md                    # Test results from baseline comparisons
 └── README.md                     # Project documentation
 ```
 
@@ -75,8 +80,8 @@ doc-analysis/
 10. ❌ **Support for different document types**  
     Current assumptions lean heavily on legal rulings. Chunk labeling logic may not generalize to motions, filings, or expert opinions.
 
-11. ❌ **Query logging / batch testing**  
-    No functionality yet for saving and comparing model answers across test suites.
+11. ✅ **Query logging / batch testing**  
+    Implemented baseline testing suite (`tests/test_baseline.py`) that runs 8 standard questions across all embedding models and saves results to markdown for comparison.
 
 12. ❌ **Persistent vector store pruning**  
     Vectorstore directories accumulate; a background cleaner or UI option for stale store removal is pending.
