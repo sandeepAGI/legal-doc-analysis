@@ -39,14 +39,15 @@ if uploaded_file and query:
         # Initialize embedder
         embedder = get_embedder(local_model_path=model_path)
 
-        # Generate unique collection name to avoid stale results
-        collection_name = f"doc_chunks_{uuid.uuid4().hex[:8]}"
+        # Create model-specific persist directory to avoid dimension conflicts
+        model_name = embed_model_option.replace(" (Ollama)", "").replace("-", "_")
+        persist_dir = f"chroma_store_{model_name}"
 
         # Create and populate vector store
         vectordb = create_vectorstore(
             embedder=embedder,
             chunks=chunks,
-            persist_dir="chroma_store"
+            persist_dir=persist_dir
         )
         # Query vector store
         retrieved = query_vectorstore(vectordb, query, k=10)

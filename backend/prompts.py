@@ -1,9 +1,9 @@
-QNA_PROMPT_TEMPLATE = (
+QNA_PROMPT_BACKUP = (
     "Answer the question using only the context below. Be concise and quote directly when possible.\n\n"
     "CONTEXT:\n{context}\n\nQUESTION:\n{question}"
 )
 
-DOUBLE_CHECK_PROMPT = """
+QNA_PROMPT_TEMPLATE = """
 You are a legal analyst reviewing excerpts from one or more legal documents, such as motions, opinions, filings, or expert reports. Each excerpt is tagged with its location (e.g., page number and section title).
 
 Your task is to:
