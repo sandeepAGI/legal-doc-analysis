@@ -305,7 +305,25 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 **Estimated Effort**: 12-15 hours
 
 #### 11. **Query Logging / Batch Testing** ✅
-**Status**: Already implemented with baseline testing suite
+**Status**: Already implemented with comprehensive baseline testing suite
+
+**Current Test Coverage**:
+- ✅ **Baseline Regression Tests**: `test_baseline.py` runs 8 comprehensive questions across 3 embedding models (24 test scenarios)
+- ✅ **Pipeline Integration Tests**: `test_pipeline.py` validates document loading and chunking pipeline
+- ✅ **Vectorstore Tests**: `test_vectorstore_pipeline.py` tests complete vectorstore creation and querying
+- ✅ **All Tests Pass**: Tests have been reviewed and updated to work with current codebase (January 2025)
+
+**Test Execution**:
+```bash
+# Run individual tests
+python tests/test_pipeline.py
+python tests/test_vectorstore_pipeline.py
+
+# Run full baseline regression suite (takes 5+ minutes)
+python tests/test_baseline.py
+```
+
+**Test Results**: Saved to `results.md` with detailed model comparisons and answer quality analysis
 
 #### 12. **Persistent Vector Store Pruning**
 **Issue**: Vector store directories accumulate without cleanup.

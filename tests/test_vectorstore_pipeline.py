@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from backend.loader import load_document
 from backend.chunker import semantic_chunk
 from backend.embedder import get_embedder
-from backend.vectorstore import create_vectorstore, add_chunks_to_store, query_vectorstore
+from backend.vectorstore import create_vectorstore, query_vectorstore
 
 def run_vectorstore_pipeline(pdf_path, persist_dir="chroma_store"):
     print("Loading document...")
@@ -19,17 +19,14 @@ def run_vectorstore_pipeline(pdf_path, persist_dir="chroma_store"):
     embedder = get_embedder()
 
     print("Creating vector store...")
-    vectordb = create_vectorstore(persist_dir, embedder)
-
-    print("Adding chunks to vector store...")
-    add_chunks_to_store(chunks, vectordb)
+    vectordb = create_vectorstore(embedder, chunks, persist_dir)
 
     print("Running test query...")
     query = "Who were the defendants?"
-    results = query_vectorstore(query, vectordb, k=5)
+    results = query_vectorstore(vectordb, query, k=5)
 
-    for i, doc in enumerate(results, 1):
-        print(f"\n--- Result {i} ---")
+    for i, (doc, score) in enumerate(results, 1):
+        print(f"\n--- Result {i} (Score: {score:.4f}) ---")
         print(doc.page_content)
 
 if __name__ == "__main__":
