@@ -2,6 +2,10 @@
 
 A local document analysis tool that uses LangChain, Ollama, and Streamlit to ingest and query long legal documents (30–150 pages). The app supports multiple embedding models and local LLM inference, providing a fast and private environment for deep document understanding.
 
+This code has been developed using Claude Code and is part of my quest to understand what is possible using LLMs today
+
+Disclaimer:  I am not a professional programmer and only had rudimentary knowledge of Python before I started this journey - everything here has been learnt through experiential learing.
+
 ---
 
 ## 📁 Project Structure
