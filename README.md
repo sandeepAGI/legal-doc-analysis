@@ -130,7 +130,7 @@ class QueryProcessor:
 **Dependencies**: `pyspellchecker`, legal terminology database
 
 #### 4. **Semantic Chunking Improvements** ✅
-**Status**: **IMPLEMENTED** (January 2025)
+**Status**: **IMPLEMENTED** (June 19th, 2025)
 
 **Issue**: Hard character limits break semantic units, causing information loss and poor retrieval quality.
 
