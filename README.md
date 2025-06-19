@@ -35,7 +35,7 @@ doc-analysis/
   - `bge-small-en`
   - `bge-base-en`
   - `nomic-embed-text` (via Ollama)
-- ✅ Semantic chunking with page/section detection
+- ✅ **Enhanced semantic chunking** with sentence boundaries, sliding window overlap, and page/section detection
 - ✅ Metadata-aware display of chunks in response view:
   - Chunk #
   - Similarity Score
@@ -125,40 +125,47 @@ class QueryProcessor:
 **Estimated Effort**: 8-10 hours
 **Dependencies**: `pyspellchecker`, legal terminology database
 
-#### 4. **Semantic Chunking Improvements**
-**Issue**: Hard character limits break semantic units.
+#### 4. **Semantic Chunking Improvements** ✅
+**Status**: **IMPLEMENTED** (January 2025)
 
-**Solution Proposal**:
-- **Sentence Boundary Preservation**: Use NLTK/spaCy sentence tokenizer
-- **Sliding Window Overlap**: 150-200 character overlap between chunks
-- **Hierarchical Chunking**: Respect paragraph and section boundaries
-- **Dynamic Sizing**: Adjust chunk size based on content density
+**Issue**: Hard character limits break semantic units, causing information loss and poor retrieval quality.
 
-**Implementation**:
+**Solution Implemented**:
+- ✅ **Sentence Boundary Preservation**: Implemented NLTK sentence tokenizer to maintain semantic integrity
+- ✅ **Sliding Window Overlap**: 200-character configurable overlap between chunks to maintain context
+- ✅ **Hierarchical Chunking**: Respects paragraph and section boundaries with forced breaks at section headers
+- ✅ **Enhanced Metadata**: Added chunk_size and sentence_count to metadata for better analysis
+- ✅ **Backward Compatibility**: Legacy chunking function preserved as `semantic_chunk_legacy()`
+
+**Key Improvements**:
 ```python
-# In chunker.py
-def improved_semantic_chunk(text, target_size=800, overlap=200):
-    sentences = sent_tokenize(text)
-    chunks = []
-    current_chunk = []
-    current_size = 0
-    
-    for sentence in sentences:
-        if current_size + len(sentence) > target_size and current_chunk:
-            chunks.append(' '.join(current_chunk))
-            # Create overlap
-            overlap_sentences = current_chunk[-overlap_sentence_count:]
-            current_chunk = overlap_sentences + [sentence]
-            current_size = sum(len(s) for s in current_chunk)
-        else:
-            current_chunk.append(sentence)
-            current_size += len(sentence)
-    
-    return chunks
+def semantic_chunk(text, max_chunk_size=1000, overlap_size=200, min_chunk_size=100):
+    """
+    Improved semantic chunking with sentence boundaries and sliding window overlap.
+    - Preserves sentence boundaries using NLTK tokenization
+    - Implements configurable sliding window overlap
+    - Respects section boundaries with metadata tracking
+    - Enhanced metadata including chunk_size and sentence_count
+    """
 ```
 
-**Estimated Effort**: 6-8 hours
-**Dependencies**: NLTK or spaCy for sentence tokenization
+**Performance Results**:
+- **Chunk Quality**: Better semantic coherence with sentence-level boundaries
+- **Overlap Effectiveness**: 200-character overlap maintains context between chunks
+- **Metadata Enhancement**: Rich metadata enables better retrieval analysis
+- **Regression Testing**: ✅ Passes all existing functionality tests
+
+**Test Coverage**:
+- ✅ **Unit Tests**: 13 comprehensive tests in `tests/test_chunker.py`
+- ✅ **Integration Tests**: Pipeline integration verified in `tests/test_pipeline.py`
+- ✅ **Regression Tests**: Single-question baseline test confirms compatibility
+
+**Implementation Files**:
+- `backend/chunker.py`: Enhanced semantic chunking with overlap and sentence boundaries
+- `tests/test_chunker.py`: Comprehensive unit test suite
+- `test_regression_single.py`: Regression testing script
+
+**Dependencies**: NLTK (already in requirements.txt)
 
 #### 5. **Retrieval Quality Validation**
 **Issue**: No similarity score thresholds or result filtering.
