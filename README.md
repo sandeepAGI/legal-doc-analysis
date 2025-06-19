@@ -53,31 +53,41 @@ doc-analysis/
 
 ### 🔴 High Priority - Retrieval Robustness
 
-#### 1. **Persistent Vector Store Management**
-**Issue**: Creates new vector store each run, preventing reuse and wasting computation.
+#### 1. **Vector Store Stale Data Issue** ✅
+**Status**: **FIXED** (June 19th, 2025)
 
-**Solution Proposal**:
+**Issue**: Streamlit app was reusing stale vector stores from previous document uploads, causing inconsistent retrieval results compared to fresh baseline tests.
+
+**Root Cause**: `app.py` persisted vector stores across sessions while `test_baseline.py` created fresh ones each time, leading to quality differences.
+
+**Solution Implemented**:
+- ✅ **Vector Store Cleanup**: Added automatic cleanup of existing vector stores before creating new ones
+- ✅ **Consistent Behavior**: Streamlit app now matches baseline test logic exactly
+- ✅ **Fresh Embeddings**: Each document upload creates a clean vector store, preventing stale retrieval
+
+**Implementation**:
+```python
+# In app.py lines 46-49
+# Clean up existing store to avoid stale results (like test_baseline.py)
+import shutil
+if os.path.exists(persist_dir):
+    shutil.rmtree(persist_dir)
+```
+
+**Performance Impact**: Slightly longer processing time per document, but ensures retrieval accuracy and consistency with baseline tests.
+
+**Validation**: Q8 test case now correctly finds "September 27, 2022" information in both Streamlit and baseline tests.
+
+#### 2. **Future: Smart Vector Store Management**
+**Future Enhancement**: Implement intelligent persistence with document fingerprinting for production use:
 - **Document Fingerprinting**: Use MD5 hash of document content + embedding model to create unique collection names
 - **Collection Reuse Logic**: Check if collection exists before recreating, with file modification time validation
 - **Storage Structure**: Organize collections by document hash with metadata files for quick lookup
 
-**Implementation**:
-```python
-# In app.py and vectorstore.py
-def get_collection_name(file_content, embedding_model):
-    doc_hash = hashlib.md5(file_content).hexdigest()[:12]
-    model_suffix = embedding_model.replace('-', '_').replace('/', '_')
-    return f"doc_{doc_hash}_{model_suffix}"
-
-def collection_exists(collection_name):
-    # Check Chroma DB for existing collection
-    # Validate freshness with metadata timestamp
-```
-
 **Estimated Effort**: 4-6 hours
 **Dependencies**: Modify `app.py`, `vectorstore.py`
 
-#### 2. **Adaptive Retrieval Parameters**
+#### 3. **Adaptive Retrieval Parameters**
 **Issue**: Fixed k=10 retrieval regardless of query complexity.
 
 **Solution Proposal**:
@@ -102,7 +112,7 @@ def adaptive_retrieve(query, vectordb):
 **Estimated Effort**: 6-8 hours
 **Dependencies**: NLP analysis library, query classification logic
 
-#### 3. **Query Preprocessing Pipeline**
+#### 4. **Query Preprocessing Pipeline**
 **Issue**: No spell checking, query expansion, or semantic preprocessing.
 
 **Solution Proposal**:
@@ -129,7 +139,7 @@ class QueryProcessor:
 **Estimated Effort**: 8-10 hours
 **Dependencies**: `pyspellchecker`, legal terminology database
 
-#### 4. **Semantic Chunking Improvements** ✅
+#### 5. **Semantic Chunking Improvements** ✅
 **Status**: **IMPLEMENTED** (June 19th, 2025)
 
 **Issue**: Hard character limits break semantic units, causing information loss and poor retrieval quality.
@@ -171,7 +181,7 @@ def semantic_chunk(text, max_chunk_size=1000, overlap_size=200, min_chunk_size=1
 
 **Dependencies**: NLTK (already in requirements.txt)
 
-#### 5. **Retrieval Quality Validation**
+#### 6. **Retrieval Quality Validation**
 **Issue**: No similarity score thresholds or result filtering.
 
 **Solution Proposal**:
@@ -201,7 +211,7 @@ def validate_retrieval_quality(query, results):
 
 ### 🟡 Medium Priority - Advanced Features
 
-#### 6. **Hybrid Search Implementation**
+#### 7. **Hybrid Search Implementation**
 **Issue**: Only vector similarity search, missing keyword-based retrieval.
 
 **Solution Proposal**:
@@ -225,7 +235,7 @@ class HybridSearcher:
 **Estimated Effort**: 10-12 hours
 **Dependencies**: `rank_bm25`, score fusion algorithms
 
-#### 7. **Reranking Pipeline**
+#### 8. **Reranking Pipeline**
 **Issue**: Retrieved chunks need reranking by query-specific relevance.
 
 **Solution Proposal**:
@@ -250,7 +260,7 @@ class CrossEncoderReranker:
 **Estimated Effort**: 8-10 hours
 **Dependencies**: `sentence-transformers`, cross-encoder models
 
-#### 8. **Prompt Flexibility (Double-Check Mode)**
+#### 9. **Prompt Flexibility (Double-Check Mode)**
 **Issue**: Double-check prompt exists but isn't wired into the application.
 
 **Solution Proposal**:
@@ -275,7 +285,7 @@ def select_prompt(query, double_check=False, confidence_score=None):
 **Estimated Effort**: 4-6 hours
 **Dependencies**: UI updates, prompt routing logic
 
-#### 9. **Metadata-Aware Retrieval**
+#### 10. **Metadata-Aware Retrieval**
 **Issue**: Page/section metadata exists but isn't used for filtering or boosting.
 
 **Solution Proposal**:
@@ -304,7 +314,7 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 
 ### 🟢 Low Priority - Infrastructure
 
-#### 10. **Support for Different Document Types**
+#### 11. **Support for Different Document Types**
 **Issue**: Current assumptions lean heavily on legal rulings.
 
 **Solution Proposal**:
@@ -315,7 +325,7 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 
 **Estimated Effort**: 12-15 hours
 
-#### 11. **Query Logging / Batch Testing** ✅
+#### 12. **Query Logging / Batch Testing** ✅
 **Status**: Already implemented with comprehensive baseline testing suite
 
 **Current Test Coverage**:
@@ -323,6 +333,7 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 - ✅ **Pipeline Integration Tests**: `test_pipeline.py` validates document loading and chunking pipeline
 - ✅ **Vectorstore Tests**: `test_vectorstore_pipeline.py` tests complete vectorstore creation and querying
 - ✅ **All Tests Pass**: Tests have been reviewed and updated to work with current codebase (January 2025)
+- ✅ **Auto-Rotation**: Results file automatically rotates when exceeding 1MB to keep repo lightweight
 
 **Test Execution**:
 ```bash
@@ -334,9 +345,12 @@ python tests/test_vectorstore_pipeline.py
 python tests/test_baseline.py
 ```
 
-**Test Results**: Saved to `results.md` with detailed model comparisons and answer quality analysis
+**Test Results**: 
+- Saved to `results.md` with detailed model comparisons and answer quality analysis
+- Auto-rotates to `results_backup_YYYYMMDD_HHMMSS.md` when file exceeds 1MB
+- Backup files excluded from git tracking to maintain repo size
 
-#### 12. **Persistent Vector Store Pruning**
+#### 13. **Persistent Vector Store Pruning**
 **Issue**: Vector store directories accumulate without cleanup.
 
 **Solution Proposal**:
@@ -364,9 +378,29 @@ class StorageManager:
 
 ## 🧪 Usage Instructions
 
+### Option A: VS Code Dev Container (Recommended for New Users)
+**Prerequisites**: VS Code + Docker Desktop installed
+
+1. **Get the code** (ZIP file, USB, or git clone)
+2. **Open in VS Code**: `code doc-analysis/`
+3. **Click "Reopen in Container"** when VS Code prompts
+4. **Wait 5-10 minutes** for automatic setup (downloads ~4GB of models)
+5. **Run**: `streamlit run app.py` in VS Code terminal
+6. **Open**: http://localhost:8501
+
+**What gets installed automatically:**
+- ✅ Python environment & dependencies
+- ✅ BGE embedding models (bge-small-en, bge-base-en)
+- ✅ Ollama + nomic-embed-text embedding
+- ✅ Llama3 LLM model
+- ✅ All configured and ready to use!
+
+### Option B: Manual Setup
 ```bash
 # 1. Set up environment
-conda activate your_env_name
+python -m venv venv
+# Windows: venv\Scripts\activate
+# Mac/Linux: source venv/bin/activate
 
 # 2. Install dependencies
 pip install -r requirements.txt

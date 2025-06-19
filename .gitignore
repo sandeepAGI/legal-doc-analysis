@@ -10,7 +10,7 @@ __pycache__/
 # Jupyter Notebook
 .ipynb_checkpoints/
 
-# VSCode
+# VSCode (but keep .devcontainer for sharing)
 .vscode/
 
 # macOS
@@ -21,8 +21,8 @@ __pycache__/
 */models/
 data/
 */data/
-chroma_store/
-*/chroma_store/
+chroma_store*/
+test_*/
 *.pdf
 
 # Streamlit cache
@@ -32,3 +32,7 @@ chroma_store/
 *.sqlite3
 *.db
 *.pkl
+
+# Test files and results
+test_results.md
+*_backup_*.md

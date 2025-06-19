@@ -43,6 +43,11 @@ if uploaded_file and query:
         model_name = embed_model_option.replace(" (Ollama)", "").replace("-", "_")
         persist_dir = f"chroma_store_{model_name}"
 
+        # Clean up existing store to avoid stale results (like test_baseline.py)
+        import shutil
+        if os.path.exists(persist_dir):
+            shutil.rmtree(persist_dir)
+
         # Create and populate vector store
         vectordb = create_vectorstore(
             embedder=embedder,

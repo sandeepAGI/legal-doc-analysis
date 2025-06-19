@@ -81,7 +81,7 @@ def run_qa_pipeline(pdf_path, question, model_config):
 
 def write_results_header(file_handle, timestamp):
     """Write the results header to the markdown file."""
-    file_handle.write(f"# Baseline Test Results\n\n")
+    file_handle.write(f"# Baseline Test Results - {timestamp}\n\n")
     file_handle.write(f"**Test Run Date:** {timestamp}\n")
     file_handle.write(f"**PDF File:** {PDF_PATH}\n")
     file_handle.write(f"**Number of Questions:** {len(QUESTIONS)}\n")
@@ -110,6 +110,13 @@ def main():
         return
     
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Rotate results file if it gets too large (>1MB)
+    MAX_SIZE_MB = 1
+    if os.path.exists(RESULTS_FILE) and os.path.getsize(RESULTS_FILE) > MAX_SIZE_MB * 1024 * 1024:
+        backup_name = f"results_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        shutil.move(RESULTS_FILE, backup_name)
+        print(f"📦 Rotated large results file to: {backup_name}")
     
     # Open results file for writing (append mode)
     with open(RESULTS_FILE, "a", encoding="utf-8") as f:
