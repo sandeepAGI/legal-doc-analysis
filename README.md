@@ -12,27 +12,39 @@ Disclaimer:  I am not a professional programmer and only had rudimentary knowled
 
 ```
 doc-analysis/
-├── app.py                         # Streamlit app for interaction
+├── CLAUDE.md                     # Project instructions and guidelines
+├── LICENSE                       # Project license
+├── README.md                     # Project documentation
+├── app.py                        # Streamlit app for interaction
 ├── backend/
-│   ├── chunker.py                 # Semantic chunking with page & section metadata
-│   ├── embedder.py               # Embedding loader with model toggle
-│   ├── loader.py                 # PDF loader using unstructured
-│   ├── llm_wrapper.py            # LLM prompt and response handler
-│   ├── prompts.py                # Central prompt templates (static)
-│   ├── smart_vectorstore.py      # Smart Vector Store with caching & fingerprinting
-│   └── vectorstore.py            # Original Chroma-based vector DB interface
+│   ├── chunker.py               # Semantic chunking with page & section metadata
+│   ├── embedder.py             # Embedding loader with model toggle
+│   ├── loader.py               # PDF loader using unstructured
+│   ├── llm_wrapper.py          # LLM prompt and response handler
+│   ├── prompts.py              # Central prompt templates (static)
+│   ├── smart_vectorstore.py    # Smart Vector Store with caching & fingerprinting
+│   └── vectorstore.py          # Original Chroma-based vector DB interface
+├── chroma_stores/               # Smart Vector Store management
+│   ├── collections/            # Individual document collections by fingerprint
+│   ├── metadata/               # Collection metadata and cache statistics
+│   └── temp/                   # Temporary processing files
+├── data/                        # Sample PDF documents for testing
+├── models/                      # Local BGE embedding models
+│   ├── bge-base-en/            # BGE base model files
+│   └── bge-small-en/           # BGE small model files
 ├── tests/
-│   ├── test_baseline.py          # Baseline test suite for embedding model comparison
-│   ├── test_baseline_smart.py    # Smart Vector Store baseline with caching
+│   ├── test_baseline.py        # Baseline test suite for embedding model comparison
+│   ├── test_baseline_smart.py  # Smart Vector Store baseline with caching
 │   ├── test_cache_vs_original.py # Smart vs Original comparison test
-│   ├── test_chunker.py           # Comprehensive chunking unit tests
-│   ├── test_pipeline.py          # Pipeline integration tests
+│   ├── test_chunker.py         # Comprehensive chunking unit tests
+│   ├── test_pipeline.py        # Pipeline integration tests
 │   ├── test_smart_vectorstore.py # Smart Vector Store unit tests
 │   └── test_vectorstore_pipeline.py # Vector store specific tests
-├── download_hf_bbg.py            # Script to fetch BGE models from Hugging Face
-├── requirements.txt              # Full dependency list
-├── results.md                    # Test results from baseline comparisons
-└── README.md                     # Project documentation
+├── download_hf_bbg.py          # Script to fetch BGE models from Hugging Face
+├── requirements.txt            # Full dependency list
+├── results.md                  # Test results from baseline comparisons
+├── results_smart.md            # Smart Vector Store test results
+└── README.md                   # Project documentation
 ```
 
 ---
@@ -64,40 +76,17 @@ doc-analysis/
 
 ### 🔴 High Priority - Retrieval Robustness
 
-#### 1. **Vector Store Stale Data Issue** ✅
-**Status**: **FIXED** (June 19th, 2025)
-
-**Issue**: Streamlit app was reusing stale vector stores from previous document uploads, causing inconsistent retrieval results compared to fresh baseline tests.
-
-**Root Cause**: `app.py` persisted vector stores across sessions while `test_baseline.py` created fresh ones each time, leading to quality differences.
-
-**Solution Implemented**:
-- ✅ **Vector Store Cleanup**: Added automatic cleanup of existing vector stores before creating new ones
-- ✅ **Consistent Behavior**: Streamlit app now matches baseline test logic exactly
-- ✅ **Fresh Embeddings**: Each document upload creates a clean vector store, preventing stale retrieval
-
-**Implementation**:
-```python
-# In app.py lines 46-49
-# Clean up existing store to avoid stale results (like test_baseline.py)
-import shutil
-if os.path.exists(persist_dir):
-    shutil.rmtree(persist_dir)
-```
-
-**Performance Impact**: Slightly longer processing time per document, but ensures retrieval accuracy and consistency with baseline tests.
-
-**Validation**: Q8 test case now correctly finds "September 27, 2022" information in both Streamlit and baseline tests.
-
-#### 2. **Smart Vector Store Management** ✅
+#### 1. **Smart Vector Store Management** ✅
 **Status**: **IMPLEMENTED** (June 22nd, 2025)
+
+**Issue Solved**: Eliminates stale vector store data by creating unique collections per document+model combination, ensuring consistent retrieval results between Streamlit app and baseline tests.
 
 **Implementation Completed**:
 - ✅ **Document Fingerprinting**: MD5 hash of (document_content + embedding_model + chunk_params) for unique identification
 - ✅ **Intelligent Caching**: Automatic reuse of existing vector stores when document unchanged (~90% faster processing)
 - ✅ **Storage Management**: LRU-based cleanup with configurable limits (1GB total, 10 collections per model, 30-day TTL)
 - ✅ **Real-time Statistics**: Cache hit/miss rates and storage usage displayed in Streamlit sidebar
-- ✅ **Future-Ready Design**: Infrastructure supports document comparison capabilities
+- ✅ **Stale Data Prevention**: Each document gets fresh collection, no cross-contamination between uploads
 
 **Key Benefits**:
 ```python
@@ -122,9 +111,9 @@ vectordb = smart_vs.get_or_create_vectorstore(
 - `backend/smart_vectorstore.py`: Core Smart Vector Store implementation
 - `app.py`: Updated to use Smart Vector Store with cache statistics UI
 - `tests/test_smart_vectorstore.py`: Comprehensive unit test suite
-- `test_regression_smart_vectorstore.py`: Regression testing script
+- `tests/test_baseline_smart.py`: Smart Vector Store baseline testing
 
-#### 3. **Adaptive Retrieval Parameters**
+#### 2. **Adaptive Retrieval Parameters**
 **Issue**: Fixed k=10 retrieval regardless of query complexity.
 
 **Solution Proposal**:
@@ -149,7 +138,7 @@ def adaptive_retrieve(query, vectordb):
 **Estimated Effort**: 6-8 hours
 **Dependencies**: NLP analysis library, query classification logic
 
-#### 4. **Query Preprocessing Pipeline**
+#### 3. **Query Preprocessing Pipeline**
 **Issue**: No spell checking, query expansion, or semantic preprocessing.
 
 **Solution Proposal**:
@@ -176,7 +165,7 @@ class QueryProcessor:
 **Estimated Effort**: 8-10 hours
 **Dependencies**: `pyspellchecker`, legal terminology database
 
-#### 5. **Semantic Chunking Improvements** ✅
+#### 4. **Semantic Chunking Improvements** ✅
 **Status**: **IMPLEMENTED** (June 19th, 2025)
 
 **Issue**: Hard character limits break semantic units, causing information loss and poor retrieval quality.
@@ -214,11 +203,11 @@ def semantic_chunk(text, max_chunk_size=1000, overlap_size=200, min_chunk_size=1
 **Implementation Files**:
 - `backend/chunker.py`: Enhanced semantic chunking with overlap and sentence boundaries
 - `tests/test_chunker.py`: Comprehensive unit test suite
-- `test_regression_single.py`: Regression testing script
+- `tests/test_baseline.py`: Includes chunking validation in baseline tests
 
 **Dependencies**: NLTK (already in requirements.txt)
 
-#### 6. **Retrieval Quality Validation**
+#### 5. **Retrieval Quality Validation**
 **Issue**: No similarity score thresholds or result filtering.
 
 **Solution Proposal**:
@@ -248,7 +237,7 @@ def validate_retrieval_quality(query, results):
 
 ### 🟡 Medium Priority - Advanced Features
 
-#### 7. **Hybrid Search Implementation**
+#### 6. **Hybrid Search Implementation**
 **Issue**: Only vector similarity search, missing keyword-based retrieval.
 
 **Solution Proposal**:
@@ -272,7 +261,7 @@ class HybridSearcher:
 **Estimated Effort**: 10-12 hours
 **Dependencies**: `rank_bm25`, score fusion algorithms
 
-#### 8. **Reranking Pipeline**
+#### 7. **Reranking Pipeline**
 **Issue**: Retrieved chunks need reranking by query-specific relevance.
 
 **Solution Proposal**:
@@ -297,7 +286,7 @@ class CrossEncoderReranker:
 **Estimated Effort**: 8-10 hours
 **Dependencies**: `sentence-transformers`, cross-encoder models
 
-#### 9. **Prompt Flexibility (Double-Check Mode)**
+#### 8. **Prompt Flexibility (Double-Check Mode)**
 **Issue**: Double-check prompt exists but isn't wired into the application.
 
 **Solution Proposal**:
@@ -322,7 +311,7 @@ def select_prompt(query, double_check=False, confidence_score=None):
 **Estimated Effort**: 4-6 hours
 **Dependencies**: UI updates, prompt routing logic
 
-#### 10. **Metadata-Aware Retrieval**
+#### 9. **Metadata-Aware Retrieval**
 **Issue**: Page/section metadata exists but isn't used for filtering or boosting.
 
 **Solution Proposal**:
@@ -351,7 +340,7 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 
 ### 🟢 Low Priority - Infrastructure
 
-#### 11. **Support for Different Document Types**
+#### 10. **Support for Different Document Types**
 **Issue**: Current assumptions lean heavily on legal rulings.
 
 **Solution Proposal**:
@@ -362,7 +351,7 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 
 **Estimated Effort**: 12-15 hours
 
-#### 12. **Query Logging / Batch Testing** ✅
+#### 11. **Query Logging / Batch Testing** ✅
 **Status**: Already implemented with comprehensive baseline testing suite
 
 **Current Test Coverage**:
@@ -387,7 +376,7 @@ python tests/test_baseline.py
 - Auto-rotates to `results_backup_YYYYMMDD_HHMMSS.md` when file exceeds 1MB
 - Backup files excluded from git tracking to maintain repo size
 
-#### 13. **Persistent Vector Store Pruning**
+#### 12. **Persistent Vector Store Pruning**
 **Issue**: Vector store directories accumulate without cleanup.
 
 **Solution Proposal**:
@@ -415,41 +404,47 @@ class StorageManager:
 
 ## 🧪 Usage Instructions
 
-### Option A: VS Code Dev Container (Recommended for New Users)
-**Prerequisites**: VS Code + Docker Desktop installed
+### Setup Instructions
 
-1. **Get the code** (ZIP file, USB, or git clone)
-2. **Open in VS Code**: `code doc-analysis/`
-3. **Click "Reopen in Container"** when VS Code prompts
-4. **Wait 5-10 minutes** for automatic setup (downloads ~4GB of models)
-5. **Run**: `streamlit run app.py` in VS Code terminal
-6. **Open**: http://localhost:8501
+**Prerequisites**: Python 3.8+ installed
 
-**What gets installed automatically:**
-- ✅ Python environment & dependencies
-- ✅ BGE embedding models (bge-small-en, bge-base-en)
-- ✅ Ollama + nomic-embed-text embedding
-- ✅ Llama3 LLM model
-- ✅ All configured and ready to use!
-
-### Option B: Manual Setup
 ```bash
-# 1. Set up environment
+# 1. Clone or download the repository
+git clone <repository-url>
+cd doc-analysis
+
+# 2. Set up virtual environment
 python -m venv venv
 # Windows: venv\Scripts\activate
 # Mac/Linux: source venv/bin/activate
 
-# 2. Install dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 3. (One-time) Download local BGE models
+# 4. (One-time) Download local BGE models
 python download_hf_bbg.py
 
-# 4. Run the app
+# 5. Run the Streamlit application
 streamlit run app.py
 ```
 
 Then open `http://localhost:8501` in your browser.
+
+### Using the Application
+
+1. **Select Embedding Model**: Choose from:
+   - `bge-small-en` (faster, local)
+   - `bge-base-en` (better quality, local)  
+   - `nomic-embed-text (Ollama)` (requires Ollama installed)
+
+2. **Upload PDF**: Upload your legal document or analytical text (30-150 pages work best)
+
+3. **Ask Questions**: Enter your question in natural language
+
+4. **View Results**: 
+   - Answer synthesized by local LLM
+   - Retrieved chunks with similarity scores and section metadata
+   - Cache statistics showing performance metrics
 
 ---
 
@@ -490,9 +485,9 @@ Then open `http://localhost:8501` in your browser.
 | Feature | Impact | Effort | Priority | Dependencies |
 |---------|--------|--------|----------|--------------|
 | ✅ Smart Vector Store | High | Low | **DONE** | None |
+| ✅ Semantic Chunking | High | Medium | **DONE** | NLTK |
 | Retrieval Quality Validation | High | Medium | **P0** | None |
 | Adaptive Retrieval Parameters | High | Medium | **P1** | Query analysis |
-| Semantic Chunking | High | Medium | **P1** | NLTK/spaCy |
 | Query Preprocessing | High | High | **P1** | Legal dictionary |
 | Hybrid Search | Medium | High | **P2** | BM25, score fusion |
 | Cross-Encoder Reranking | Medium | High | **P2** | sentence-transformers |
@@ -504,7 +499,8 @@ Then open `http://localhost:8501` in your browser.
 ### Success Metrics & Validation
 
 **Phase 1 Success Criteria:**
-- [x] ✅ Vector stores persist across sessions (measure: storage reuse rate) - ACHIEVED: 50% cache hit rate in testing
+- [x] ✅ Smart Vector Store Management - ACHIEVED: ~90% faster processing for unchanged documents, intelligent caching
+- [x] ✅ Semantic Chunking with sentence boundaries - ACHIEVED: NLTK-based sentence tokenization, sliding window overlap
 - [ ] Retrieval quality scores visible to users (measure: user confidence)
 - [ ] Adaptive k selection reduces irrelevant results by 20%
 
