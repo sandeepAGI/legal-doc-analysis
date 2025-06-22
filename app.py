@@ -4,7 +4,7 @@ import os
 from backend.loader import load_document
 from backend.chunker import semantic_chunk
 from backend.embedder import get_embedder
-from backend.vectorstore import create_vectorstore, query_vectorstore
+from backend.smart_vectorstore import SmartVectorStore
 from backend.llm_wrapper import synthesize_answer
 
 st.set_page_config(page_title="Document Analyzer", layout="wide")
@@ -25,6 +25,30 @@ model_path = None if use_ollama else os.path.join(MODEL_ROOT, embed_model_option
 uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
 query = st.text_input("Ask a question about the document:")
 
+# Initialize Smart Vector Store
+@st.cache_resource
+def get_smart_vectorstore():
+    return SmartVectorStore()
+
+smart_vs = get_smart_vectorstore()
+
+# Display cache statistics in sidebar
+with st.sidebar:
+    st.subheader("📊 Cache Statistics")
+    cache_stats = smart_vs.get_cache_statistics()
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Cache Hits", cache_stats["cache_hits"])
+        st.metric("Cache Misses", cache_stats["cache_misses"])
+    with col2:
+        st.metric("Hit Rate", f"{cache_stats['hit_rate_percent']:.1f}%")
+        st.metric("Storage", f"{cache_stats['storage_usage_gb']:.2f} GB")
+    
+    if st.button("🧹 Force Cleanup"):
+        smart_vs.force_cleanup()
+        st.success("Cache cleanup completed!")
+
 if uploaded_file and query:
     with st.spinner("Processing..."):
         # Save uploaded file
@@ -39,23 +63,31 @@ if uploaded_file and query:
         # Initialize embedder
         embedder = get_embedder(local_model_path=model_path)
 
-        # Create model-specific persist directory to avoid dimension conflicts
-        model_name = embed_model_option.replace(" (Ollama)", "").replace("-", "_")
-        persist_dir = f"chroma_store_{model_name}"
+        # Get embedding model name for fingerprinting
+        embedding_model = embed_model_option.replace(" (Ollama)", "")
+        
+        # Chunking parameters for fingerprinting
+        chunk_params = {"max_chunk_size": 1000, "overlap_size": 200}
+        
+        # Document info for metadata
+        document_info = {
+            "filename": uploaded_file.name,
+            "file_size": len(uploaded_file.getvalue()),
+            "chunks_count": len(chunks)
+        }
 
-        # Clean up existing store to avoid stale results (like test_baseline.py)
-        import shutil
-        if os.path.exists(persist_dir):
-            shutil.rmtree(persist_dir)
-
-        # Create and populate vector store
-        vectordb = create_vectorstore(
+        # Get or create vector store using Smart Vector Store
+        vectordb = smart_vs.get_or_create_vectorstore(
             embedder=embedder,
             chunks=chunks,
-            persist_dir=persist_dir
+            document_content=full_text,
+            embedding_model=embedding_model,
+            chunk_params=chunk_params,
+            document_info=document_info
         )
+        
         # Query vector store
-        retrieved = query_vectorstore(vectordb, query, k=10)
+        retrieved = smart_vs.query_vectorstore(vectordb, query, k=10)
 
         # Synthesize answer using LLM
         answer = synthesize_answer(query, retrieved)
@@ -70,3 +102,8 @@ if uploaded_file and query:
                 score_fmt = f"{score:.2f}" if score is not None else "N/A"
 
                 st.markdown(f"**Chunk {i} (Score: {score_fmt}, Section: {section})**\n\n{content}")
+        
+        # Show cache statistics after processing
+        with st.expander("📈 Performance Stats"):
+            updated_stats = smart_vs.get_cache_statistics()
+            st.json(updated_stats)
