@@ -10,6 +10,7 @@ from pathlib import Path
 
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
+from .adaptive_retrieval import AdaptiveRetriever
 
 class SmartVectorStore:
     """
@@ -336,9 +337,28 @@ class SmartVectorStore:
         
         return vectordb
     
-    def query_vectorstore(self, vectordb: Chroma, query: str, k: int = 10):
-        """Query the vector store with similarity search."""
-        return vectordb.similarity_search_with_score(query, k=k)
+    def query_vectorstore(self, vectordb: Chroma, query: str, k: int = 10, 
+                          embedding_model: str = 'bge-small-en', adaptive: bool = True):
+        """
+        Query the vector store with optional adaptive retrieval.
+        
+        Args:
+            vectordb: Chroma vector store instance
+            query: Query string
+            k: Number of results (used only if adaptive=False)
+            embedding_model: Name of embedding model for adaptive thresholding
+            adaptive: Whether to use adaptive retrieval (default: True)
+            
+        Returns:
+            List of (Document, score) tuples, plus optional metadata
+        """
+        if adaptive:
+            retriever = AdaptiveRetriever(embedding_model=embedding_model)
+            results, metadata = retriever.adaptive_retrieve(vectordb, query)
+            return results, metadata
+        else:
+            # Legacy behavior for backward compatibility
+            return vectordb.similarity_search_with_score(query, k=k), None
     
     def get_cache_statistics(self) -> Dict[str, Any]:
         """Get cache performance statistics."""

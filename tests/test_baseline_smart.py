@@ -71,8 +71,10 @@ def run_qa_pipeline_smart(pdf_path, question, model_config, smart_vs, full_text,
         document_info=document_info
     )
     
-    # Query vector store with k=10 to match main app behavior
-    retrieved = smart_vs.query_vectorstore(vectordb, question, k=10)
+    # Query vector store with adaptive retrieval
+    retrieved, metadata = smart_vs.query_vectorstore(
+        vectordb, question, embedding_model=model_config['name'], adaptive=True
+    )
     
     # Generate answer
     answer = synthesize_answer(question, retrieved)
@@ -84,7 +86,8 @@ def run_qa_pipeline_smart(pdf_path, question, model_config, smart_vs, full_text,
         'answer': answer,
         'retrieved_chunks': len(retrieved),
         'processing_time': processing_time,
-        'model': model_config['name']
+        'model': model_config['name'],
+        'adaptive_metadata': metadata
     }
 
 def append_results_to_file(results, cache_stats):
@@ -116,7 +119,18 @@ def append_results_to_file(results, cache_stats):
             total_time_by_model[current_model] += result['processing_time']
             
             f.write(f"**Q: {result['question']}**\n")
-            f.write(f"*Processing time: {result['processing_time']:.2f}s | Retrieved chunks: {result['retrieved_chunks']}*\n\n")
+            
+            # Add adaptive retrieval metadata
+            if result.get('adaptive_metadata'):
+                metadata = result['adaptive_metadata']
+                f.write(f"*Processing time: {result['processing_time']:.2f}s | "
+                       f"Retrieved chunks: {result['retrieved_chunks']} | "
+                       f"Query complexity: {metadata['query_complexity']} | "
+                       f"Adaptive k: {metadata['adaptive_k']} | "
+                       f"Est. tokens: {metadata['estimated_tokens']}*\n\n")
+            else:
+                f.write(f"*Processing time: {result['processing_time']:.2f}s | Retrieved chunks: {result['retrieved_chunks']}*\n\n")
+            
             f.write(f"A: {result['answer']}\n\n")
             f.write("---\n\n")
         

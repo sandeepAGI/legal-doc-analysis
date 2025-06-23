@@ -86,14 +86,36 @@ if uploaded_file and query:
             document_info=document_info
         )
         
-        # Query vector store
-        retrieved = smart_vs.query_vectorstore(vectordb, query, k=10)
+        # Query vector store with adaptive retrieval
+        retrieved, retrieval_metadata = smart_vs.query_vectorstore(
+            vectordb, query, embedding_model=embedding_model, adaptive=True
+        )
 
         # Synthesize answer using LLM
         answer = synthesize_answer(query, retrieved)
 
         st.subheader("Answer")
         st.write(answer)
+        
+        # Show retrieval strategy info
+        if retrieval_metadata:
+            with st.expander("🎯 Retrieval Strategy"):
+                from backend.adaptive_retrieval import AdaptiveRetriever
+                retriever = AdaptiveRetriever(embedding_model)
+                explanation = retriever.get_retrieval_explanation(retrieval_metadata)
+                st.info(explanation)
+                
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("Query Type", retrieval_metadata['query_complexity'].title())
+                    st.metric("Results Retrieved", retrieval_metadata['final_results_count'])
+                with col2:
+                    st.metric("Search Pool", retrieval_metadata['raw_results_count'])
+                    st.metric("After Filtering", retrieval_metadata['filtered_results_count'])
+                with col3:
+                    st.metric("Est. Tokens Used", retrieval_metadata['estimated_tokens'])
+                    threshold = f"{retrieval_metadata['quality_threshold']:.3f}"
+                    st.metric("Quality Threshold", threshold)
 
         with st.expander("Show Retrieved Chunks"):
             for i, (doc, score) in enumerate(retrieved, start=1):

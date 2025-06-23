@@ -3,52 +3,53 @@
 This file contains results from baseline testing using Smart Vector Store with intelligent caching.
 
 
-## Smart Vector Store Baseline Results - 2025-06-22 12:34:35
+## Smart Vector Store Baseline Results - 2025-06-23 09:13:28
 
 ### 📊 Cache Performance Summary
 
-- **Cache Hit Rate**: 89.3%
-- **Total Requests**: 28
-- **Cache Hits**: 25
+- **Cache Hit Rate**: 97.4%
+- **Total Requests**: 115
+- **Cache Hits**: 112
 - **Cache Misses**: 3
 - **Storage Usage**: 0.001 GB
 
 ### Model: bge-small-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 20.28s | Retrieved chunks: 10*
+*Processing time: 17.65s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants violated § 11 of the Securities Act because the Offering Documents contained material misstatements and omissions. Specifically, the plaintiff alleges that the risk factors disclosed in the Offering Documents were misleading because two of the risks which had already materialized were described as hypothetical risks.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 9.43s | Retrieved chunks: 10*
+*Processing time: 6.87s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
-A: Based on the excerpts, the defendants in this case are:
+A: Based on the excerpts provided, the defendants in this case are:
 
-* The individual defendants: Daniel Dines, who served as the Chairman of UiPath's Board of Directors and CEO, and Ashim Gupta, UiPath's CFO.
-* UiPath itself.
+* UiPath
+* Daniel Dines (Chairman of UiPath's Board of Directors and CEO)
+* Ashim Gupta (CFO)
 
-These defendants have moved to dismiss each of the plaintiff's claims.
+These individuals are mentioned as being sued by the plaintiff for allegedly violating various securities laws, including Section 11 of the Securities Act.
 
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.34s | Retrieved chunks: 10*
+*Processing time: 13.92s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts provided, the plaintiff raised several issues regarding the ARR (Annualized Renewal Run-Rate) metric:
+A: Based on the excerpts, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
-1. The invoiced amounts included revenue that might never be realized in future years, as customers may not renew their licenses.
-2. The ARR was inflated because it included non-recurring revenue such as one-time fees for implementation and service.
+1. The invoiced amounts included revenue that might never be realized in future years, such as revenue from "ramping" licenses, which added more Robots in the final month or months of a license.
+2. The ARR was inflated because it included non-recurring revenue, such as one-time fees for implementation and service.
 3. The definition of ARR was misleading because UiPath described it as a "key metric" and a better indicator of its financial health than GAAP metrics.
 
-The plaintiff argued that these issues made the ARR metric artificially inflated, which led to a misleading representation of UiPath's financial outlook.
+The plaintiff argued that these issues made the ARR metric artificially inflated and not a reliable indicator of future revenue.
 
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 17.39s | Retrieved chunks: 10*
+*Processing time: 17.41s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, it appears that UiPath allegedly misled investors during the IPO in several ways:
 
@@ -62,7 +63,7 @@ These allegations are based on statements made by UiPath in its offering documen
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 20.85s | Retrieved chunks: 10*
+*Processing time: 20.91s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, the court dismissed the Section 11 claims because:
 
@@ -78,21 +79,27 @@ Overall, the court dismissed the Section 11 claims because they were untimely an
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 24.31s | Retrieved chunks: 10*
+*Processing time: 23.15s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts provided, the opinion states that:
+A: Based on the excerpts provided, the opinion states that to state a claim for material misrepresentations or omissions under Rule 10b-5(b), a plaintiff must plead:
 
-* A statement is materially misleading when the defendants' representations, taken together and in context, would have misled a reasonable investor (Altimeo Asset Mgmt. v. Qihoo 360 Tech. Co. Ltd., 19 F.4th at 151).
-* To state a claim for material misrepresentations or omissions under Rule 10b-5(b), a plaintiff must plead: (1) a material misrepresentation or omission by the defendant; (2) scienter; (3) a connection between the misrepresentation or omission and the purchase or sale of a security; (4) reliance upon the misrepresentation or omission; (5) economic loss; and (6) loss causation (In re Phillip Morris Int’l Inc. Sec. Litig., 89 F.4th at 417).
-* Rule 10b-5(b) makes it unlawful to "omit material facts in connection with the sale of any security when that omission renders statements made misleading" (Macquarie Infrastructure Corp. v. Moab Partners, L.P., 601 U.S. at 259).
-* A pure omission under Rule 10b-5(b) occurs when a speaker says nothing, in circumstances that do not give any particular meaning to that silence (Id. at 263).
+1. A material misrepresentation or omission by the defendant;
+2. Scienter (i.e., the defendant acted with the required state of mind);
+3. A connection between the misrepresentation or omission and the purchase or sale of a security;
+4. Reliance upon the misrepresentation or omission;
+5. Economic loss; and
+6. Loss causation.
 
-Overall, the opinion emphasizes the importance of materiality and scienter in establishing a claim for material misrepresentations or omissions under Rule 10b-5(b).
+The opinion also notes that Rule 10b-5(b) requires "identifying affirmative assertions" before determining if other facts are needed to make those statements "not misleading." Additionally, the opinion states that a statement is materially misleading when the defendants' representations, taken together and in context, would have misled a reasonable investor.
+
+Furthermore, the opinion holds that American Pipe tolling cannot extend the statute of repose contained within § 13 of the Securities Act. It also rebuffs the effort to use the relation-back doctrine under Rule 15(c) to permit members of a putative class "who are not named parties, to intervene in the class action as named parties in order to revive claims that were dismissed from the class complaint for want of jurisdiction."
+
+In summary, the opinion emphasizes the importance of pleading material misrepresentations or omissions with particularity and highlights the requirements for establishing a Rule 10b-5(b) violation.
 
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 12.41s | Retrieved chunks: 10*
+*Processing time: 12.52s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023, by Samhita Gera as a putative class action. Paul Severt was later appointed as lead plaintiff on December 1, 2023.
 
@@ -103,19 +110,19 @@ The relevant excerpt is: "This action was filed on September 6, 2023 by Samhita 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 10.18s | Retrieved chunks: 10*
+*Processing time: 7.50s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
-A: Based on Excerpt D, it appears that on September 27, 2022, UiPath hosted an Analyst/Investor day, during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform . . . in ways that clearly resonate with our customers."
+A: Based on the excerpts provided, what happened on September 27, 2022, is that UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform . . . in ways that clearly resonate with our customers."
 
 ---
 
 
-**Total processing time for bge-small-en: 128.19s**
+**Total processing time for bge-small-en: 119.92s**
 
 ### Model: bge-base-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 20.47s | Retrieved chunks: 10*
+*Processing time: 18.82s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants (UiPath's management) made misleading statements and omissions in the Offering Documents, which masked UiPath's difficulties in gaining and retaining customers and the impact of competitors such as Microsoft. The plaintiff alleges that these misstatements and omissions violated Section 11 of the Securities Act, which requires companies to make a "full and fair disclosure of information" in connection with a public offering.
 
@@ -131,26 +138,27 @@ The plaintiff argues that these misstatements and omissions caused investors to 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 11.35s | Retrieved chunks: 10*
+*Processing time: 9.50s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
-* Daniel Dines, who served as the Chairman of UiPath's Board of Directors and CEO
-* Ashim Gupta, UiPath's CFO
-* The two individual defendants (Dines and Gupta) are also referred to collectively as "the defendants" or "defendants".
+Daniel Dines, who served as the Chairman of UiPath's Board of Directors and CEO, and Ashim Gupta, UiPath's CFO.
 
 Justification:
-The answer is supported by excerpts from the SAC (Securities Class Action Complaint), which identifies Daniel Dines and Ashim Gupta as the two individual defendants. Additionally, the motion to dismiss filed by the defendants refers to them collectively as "the defendants".
+
+The excerpts mention that the SAC (the complaint) asserts claims against "the defendants" without specifying their names. However, it is later clarified in the excerpts that the two individual defendants are Daniel Dines and Ashim Gupta, who served as the Chairman of the Board and CEO of UiPath, respectively, and CFO of UiPath.
+
+Specifically, excerpt 2 states: "The two individual defendants are Daniel Dines, who served as the Chairman of UiPath's Board of Directors (the 'Board') and the CEO of UiPath, and Ashim Gupta, UiPath's CFO."
 
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.34s | Retrieved chunks: 10*
+*Processing time: 13.20s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: The plaintiff raised several issues regarding the ARR (Annualized Renewal Run-Rate) metric:
+A: The plaintiff raised several issues about the ARR (Annualized Renewal Run-Rate) metric:
 
 1. The invoiced amounts included revenue that might never be realized in future years, as customers may choose not to renew licenses.
-2. The ARR was inflated because it included non-recurring revenue such as one-time fees for implementation and service.
+2. The invoiced amounts were inflated because they included non-recurring revenue such as one-time fees for implementation and service.
 3. The definition of ARR was misleading because UiPath described it as a "key metric" and a better indicator of its financial health than the GAAP metrics.
 
 The plaintiff argued that these issues made the ARR metric artificially inflated and therefore misleading to investors.
@@ -158,7 +166,7 @@ The plaintiff argued that these issues made the ARR metric artificially inflated
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 16.90s | Retrieved chunks: 10*
+*Processing time: 17.36s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, it appears that UiPath allegedly misled investors during the IPO by:
 
@@ -174,77 +182,81 @@ The excerpts also suggest that UiPath repeatedly warned investors about the limi
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 20.86s | Retrieved chunks: 10*
+*Processing time: 18.87s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the provided excerpts, the court dismissed the Section 11 claims due to the following reasons:
+A: Based on the excerpts provided, the court's reasons for dismissing the Section 11 claims are:
 
-1. The plaintiff did not plead that she purchased shares traceable to the allegedly defective registration statement, as required by Slack Technologies, LLC v. Pirani, 598 U.S. 759, 770 (2023).
-2. The original complaint filed in September of 2023 did not plead a Section 11 claim, and therefore, American Pipe tolling fails.
-3. The statute of limitations period on the Section 11 claim had run, and the defendants were entitled to rely on that fact and assess their litigation risks accordingly.
+1. The plaintiff did not plausibly plead that any misstatements were made in the Offering Documents.
+2. The only statements that survived this motion to dismiss fall within the third category and relate to competition with Microsoft.
+3. The SAC fails to plausibly plead that the defendants' statements regarding ARR (annualized revenue run rate) were either false or misleading, as UiPath made ample disclosures regarding both the nature of the ARR metric and its limitations.
+4. The plaintiff's allegations regarding ARR are dismissed because the calculation was based on amounts invoiced during a particular time period and warned against using this metric to predict future revenue.
+5. The SAC's allegations regarding competition with Microsoft are vague and plead at best that UiPath lost some deals to Microsoft, which is not inconsistent with the statements by Dines cited above.
 
-The court held that the plaintiff's assertion that the defendants omitted material information from the Offering Documents in violation of a duty to disclose was not sufficient to state a plausible claim under Section 11. The court also noted that the plaintiff did not dispute the accuracy of the transcript of the March 30, 2022 Earnings Call, which identified Dines as the speaker, and that several allegations in the SAC about competition with Microsoft were too general or untethered to any date.
-
-In summary, the court dismissed the Section 11 claims due to the plaintiff's failure to plead a plausible claim, the lack of standing to bring such a claim, and the expiration of the statute of limitations period.
+Overall, the court found that the plaintiff did not adequately plead a Section 11 claim, as there was no plausible allegation of material misstatements or omissions in the Offering Documents.
 
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 20.10s | Retrieved chunks: 10*
+*Processing time: 18.32s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the provided excerpts from the legal document, specifically the Opinion in In re UiPath, Inc. Securities Litigation, I conclude that:
+A: Based on the excerpts from Local 773 Pension Fund v. Danske Bank A/S, I conclude that the opinion states that:
 
-The opinion holds that the plaintiff's claims of Rule 10b-5(b) violations fail to plausibly plead that the defendants' statements regarding competition with Microsoft were misleading.
+* Rule 10b-5(b) makes it unlawful to omit material facts in connection with buying or selling securities when that omission renders statements made misleading.
+* The rule does not apply to "pure omissions," which occur when a speaker says nothing, in circumstances that do not give any particular meaning to that silence.
+* Even a duty to disclose certain information does not automatically render silence misleading under Rule 10b-5(b).
+* Instead, the rule requires identifying affirmative assertions before determining if other facts are needed to make those statements "not misleading."
 
 Justification:
-The opinion states that several allegations in the SAC about competition with Microsoft are too general to be inconsistent with the statements by Dines cited above. Other allegations are untethered to any date. The opinion also notes that the defendants argue that Dines was merely expressing corporate optimism and that in their SEC filings and at other conferences, the company disclosed that Microsoft was a competitor. These arguments fail.
 
-The opinion further states that the plaintiff has failed to explain why UiPath was not free to develop a bespoke measurement tool and describe that tool to investors so long as it did so accurately. The fact that management used ARR as a "key" metric and believed it was a useful tool to measure customer commitment period-over-period, as Gupta explained to investors on December 8, 2021, does not state a violation of the securities laws.
-
-Overall, the opinion concludes that the plaintiff's claims of Rule 10b-5(b) violations fail to plausibly plead that the defendants' statements regarding competition with Microsoft were misleading.
+The opinion cites Macquarie Infrastructure Corp. v. Moab Partners, L.P., 601 U.S. 257, 259 (2024), which provides guidance on Rule 10b-5(b) and the concept of "pure omissions." The court in Local 773 Pension Fund v. Danske Bank A/S applies this precedent to conclude that the defendants' statements regarding competition with Microsoft are not misleading under Rule 10b-5(b).
 
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 9.92s | Retrieved chunks: 10*
+*Processing time: 9.97s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 9.71s | Retrieved chunks: 10*
+*Processing time: 13.67s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
-A: According to the excerpts, on September 27, 2022, UiPath hosted an Analyst/Investor day, during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform ... in ways that clearly resonate with our customers."
+A: Based on the excerpts provided, it appears that on September 27, 2022, UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform... in ways that clearly resonate with our customers." This statement suggests that UiPath was acknowledging difficulties in its sales strategy and customer engagement.
+
+Justification:
+
+The relevant excerpt is from the "End of Class Period" section, which describes events on September 6-27, 2022. The specific quote mentioned is from Robert Enslin's statement during the Analyst/Investor day on September 27, 2022. This statement indicates that UiPath was recognizing issues with its sales approach and customer connection, which is consistent with the overall narrative of difficulties experienced by the company during this period.
+
+Therefore, the answer to the question "What happened on September 27, 2022?" is that UiPath hosted an Analyst/Investor day during which Robert Enslin acknowledged difficulties in the company's sales strategy and customer engagement.
 
 ---
 
 
-**Total processing time for bge-base-en: 122.65s**
+**Total processing time for bge-base-en: 119.71s**
 
 ### Model: nomic-embed-text
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 14.26s | Retrieved chunks: 10*
+*Processing time: 12.84s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts, the core allegation made by the plaintiff is that the defendants omitted material information from the Offering Documents in violation of a duty to disclose, specifically a "known trend" that UiPath had been facing problems competing with Microsoft since 2020. This omission allegedly occurred in violation of Items 105 and 303 of Regulation S-K.
+A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants, UiPath and its executives, omitted material information from the Offering Documents in violation of a duty to disclose. This omission allegedly occurred in 2021, when the Offering Documents were filed, and the plaintiff claims that this omission was a "known trend" that UiPath had been facing problems competing with Microsoft since 2020.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 9.93s | Retrieved chunks: 10*
+*Processing time: 6.48s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
-* UiPath, Inc.
-* Daniel Dines
-* Ashim Gupta
+UiPath, Inc., Daniel Dines, and Ashim Gupta.
 
-These individuals and entities have moved to dismiss each of the plaintiff's claims.
+These individuals and the company UiPath, Inc. have moved to dismiss each of the plaintiff's claims.
 
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 12.92s | Retrieved chunks: 10*
+*Processing time: 13.22s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
@@ -257,7 +269,7 @@ These issues were raised in the SAC (Statement of Alleged Claims) and are discus
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 21.69s | Retrieved chunks: 10*
+*Processing time: 21.80s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, it appears that the SAC (Securities Class Action) alleges that UiPath misled investors during the IPO by making four sets of misrepresentations:
 
@@ -277,18 +289,20 @@ Therefore, it appears that the court has granted the motion to dismiss some of t
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 16.74s | Retrieved chunks: 10*
+*Processing time: 20.78s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts provided, the court dismissed the Section 11 claims because they were time-barred. The plaintiff did not plead a Section 11 claim within one year after the discovery of the untrue statement or omission, or after such discovery should have been made by the exercise of reasonable diligence.
+A: Based on the excerpts provided, the court dismissed the Section 11 claims because they were time-barred. The plaintiff did not plead a plausible claim under Section 11, and the original complaint filed in September 2023 did not include a Section 11 claim. Therefore, the one-year statute of limitations period began when the plaintiff discovered or should have discovered the untrue statement or omission, which was after the filing of the original complaint.
 
-The court held that American Pipe tolling does not permit the filing of an amended class action complaint in 2024 containing a time-barred Section 11 claim. The original complaint, filed in September 2023, did not plead a Section 11 claim. Therefore, the lead plaintiff's Section 11 claim, brought on behalf of the class, is dismissed as time-barred.
+The court also held that American Pipe tolling does not apply to revive a time-barred Section 11 claim. The doctrine only permits the substitution of a named plaintiff to cure a standing defect, but it does not permit the filing of an amended class action complaint containing a time-barred claim.
 
-The court also noted that the plaintiff does not allege that the Offering Documents contained any additional misleading statements in violation of Section 11 apart from those already discussed in connection with his Exchange Act claims. The Exchange Act claims based on alleged misrepresentations in the Offering Documents have already been dismissed.
+Additionally, the court noted that the plaintiff's reliance on cases permitting the substitution of a named plaintiff to cure a standing defect was misplaced, as those cases did not involve a time-barred claim. The court also distinguished the case of MYL Litig. Recovery I LLC v. Mylan N.V., which relied on American Pipe tolling to permit an individual plaintiff who had opted out of a class action to bring a time-barred claim under Section 18 of the Exchange Act.
+
+In summary, the court dismissed the Section 11 claims because they were time-barred and did not meet the pleading requirements under Rule 12(b)(6) of the Federal Rules of Civil Procedure.
 
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 25.37s | Retrieved chunks: 10*
+*Processing time: 24.89s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts from Local 773 Pension Fund v. Danske Bank A/S, here is my analysis:
 
@@ -307,7 +321,7 @@ Therefore, based on these excerpts, I conclude that:
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 16.41s | Retrieved chunks: 10*
+*Processing time: 16.36s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
@@ -320,11 +334,15 @@ This excerpt clearly states that the lawsuit was filed on September 6, 2023 and 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 39.47s | Retrieved chunks: 10*
+*Processing time: 4.25s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
 
-A: Based on the excerpts provided, it appears that on September 27, 2022, UiPath hosted an Analyst/Investor day, during which Robert Enslin, Co-CEO of UiPath, stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform . . . in ways that clearly in, and may continue to result in, pricing pressures."
+A: Based on the provided excerpts, there is no information about what happened on September 27, 2022. The excerpts only mention events that occurred before or after this date, such as the IPO on April 23, 2021, and post-IPO filings and statements.
+
+Therefore, I would answer:
+
+"There is no information in the provided excerpts about what happened on September 27, 2022."
 
 ---
 
-**Total processing time for nomic-embed-text: 156.81s**
+**Total processing time for nomic-embed-text: 120.62s**
 
