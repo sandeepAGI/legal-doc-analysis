@@ -17,6 +17,7 @@ doc-analysis/
 ├── README.md                     # Project documentation
 ├── app.py                        # Streamlit app for interaction
 ├── backend/
+│   ├── adaptive_retrieval.py     # Dynamic query analysis and retrieval optimization
 │   ├── chunker.py               # Semantic chunking with page & section metadata
 │   ├── embedder.py             # Embedding loader with model toggle
 │   ├── loader.py               # PDF loader using unstructured
@@ -33,6 +34,8 @@ doc-analysis/
 │   ├── bge-base-en/            # BGE base model files
 │   └── bge-small-en/           # BGE small model files
 ├── tests/
+│   ├── test_adaptive_regression.py # Adaptive retrieval integration tests
+│   ├── test_adaptive_retrieval.py  # Adaptive retrieval unit tests
 │   ├── test_baseline.py        # Baseline test suite for embedding model comparison
 │   ├── test_baseline_smart.py  # Smart Vector Store baseline with caching
 │   ├── test_cache_vs_original.py # Smart vs Original comparison test
