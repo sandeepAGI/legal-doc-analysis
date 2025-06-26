@@ -473,10 +473,10 @@ Then open `http://localhost:8501` in your browser.
 ---
 
 ## 🧭 Implementation Roadmap & Prioritization
-**Revised Priority Focus: (a) Latency Improvements, (b) Response Quality, (c) Future Scalability**
+**Revised Priority Focus: (a) Latency Improvements, (b) Multi-Document Capabilities, (c) Response Quality, (d) Future Scalability**
 
-### Phase 1: Immediate Latency Wins (Week 1-2) - **Total: 13-18 hours**
-**Priority: Eliminate performance bottlenecks for 50% speed improvement**
+### Phase 1A: Critical Latency & Token Management (Week 1-2) - **Total: 10-14 hours**
+**Priority: Eliminate performance bottlenecks and enable multi-document foundation**
 
 **🔴 Critical Latency Fixes:**
 1. **LLM Response Streaming** (4-6 hours) - Replace blocking `llm.invoke()` with `llm.stream()` 
@@ -485,75 +485,132 @@ Then open `http://localhost:8501` in your browser.
 2. **Query Response Caching** (6-8 hours) - Cache LLM responses for repeat queries
    - **Impact**: 90% speed boost for duplicate questions
    - **Effort**: Medium - add Redis-like caching layer with query fingerprinting
-3. **Batch Embedding Processing** (3-4 hours) - Use `embed_documents()` instead of sequential calls
-   - **Impact**: 30% faster document ingestion for large PDFs
-   - **Effort**: Low - modify document ingestion pipeline
+3. ✅ **Batch Embedding Processing** - ALREADY IMPLEMENTED: Uses `embed_documents()` for optimal performance
 
 **Expected Impact**: 40-60% overall latency reduction, dramatically improved user experience
 
-### Phase 2: Quality & Intelligence Upgrades (Week 3-4) - **Total: 17-23 hours**
+### Phase 1B: Multi-Document Foundation (Week 2-3) - **Total: 12-16 hours**
+**Priority: Enable document comparison and cross-analysis capabilities**
+
+**🟡 Multi-Document Infrastructure:**
+1. **Token-Aware Document Orchestrator** (6-8 hours) - Parallel document processing with token budget management
+   - **Challenge**: Current 7K token limit prevents multi-document queries (3 docs = 12K+ tokens)
+   - **Solution**: Parallel processing per document + cross-document synthesis
+   - **Implementation**: Async document processing, token counting with tiktoken
+2. **Multi-Document UI Support** (4-6 hours) - Support multiple file uploads and document selection
+   - **Impact**: Enable document comparison, cross-analysis, and comparative queries
+   - **Effort**: Medium - modify Streamlit UI, add document management interface
+3. **Precise Token Management** (2-3 hours) - Replace rough estimation with actual token counting
+   - **Impact**: Accurate context window management, better quality control
+   - **Dependencies**: `tiktoken` or `transformers` tokenizers
+
+**Expected Impact**: Multi-document comparison capabilities with proper token management
+
+### Phase 2: Quality & Intelligence Upgrades (Week 4-5) - **Total: 17-23 hours**
 **Priority: Enhance response accuracy and user confidence**
 
 **🟡 Response Quality Focus:**
 1. **Query Preprocessing Pipeline** (8-10 hours) - Spell correction, legal term expansion
    - **Impact**: 15% improvement in retrieval accuracy
    - **Implementation**: `pyspellchecker` + legal terminology dictionary
+   - **Multi-Doc Benefit**: Improves cross-document term matching and comparison accuracy
 2. **Double-Check Mode Integration** (4-6 hours) - Wire existing prompt into UI toggle
    - **Impact**: Better verification for complex queries
    - **Effort**: Low - UI toggle + prompt routing logic
+   - **Multi-Doc Benefit**: Enhanced verification for cross-document analysis
 3. **Retrieval Quality Feedback** (5-7 hours) - User-visible confidence scores and result validation
    - **Impact**: Improved user confidence and query refinement
    - **Implementation**: Score thresholds, quality bands (high/medium/low)
+   - **Multi-Doc Benefit**: Per-document quality scores for comparison reliability
 
 **Expected Impact**: 15-25% improvement in response accuracy and user trust
 
-### Phase 3: Advanced Retrieval & Scale (Week 5-6) - **Total: 18-22 hours**
+### Phase 3: Advanced Retrieval & Scale (Week 6-7) - **Total: 18-22 hours**
 **Priority: Future-proof with advanced search capabilities**
 
 **🟢 Advanced Features:**
 1. **Hybrid Search (BM25+Vector)** (10-12 hours) - Keyword + semantic search fusion
    - **Impact**: 25% recall improvement for specific legal terms
    - **Dependencies**: `rank_bm25`, Reciprocal Rank Fusion implementation
+   - **Multi-Doc Benefit**: Better cross-document keyword matching and legal term detection
 2. **Cross-Encoder Reranking** (8-10 hours) - Precise relevance scoring for retrieved chunks
    - **Impact**: 30% improvement in top-3 result relevance
    - **Dependencies**: `sentence-transformers` cross-encoder models
+   - **Multi-Doc Benefit**: Improved relevance ranking across multiple document sources
 
-**Estimated Total Effort: 48-63 hours (6-8 weeks part-time)**
-**ROI-Optimized**: Focuses on biggest impact items first
+**Estimated Total Effort: 57-75 hours (7-9 weeks part-time)**
+**ROI-Optimized**: Focuses on biggest impact items first, enables multi-document comparison
 
 ### Implementation Priority Matrix
-**Ranked by ROI (Impact ÷ Effort) for latency, quality, and scalability**
+**Ranked by ROI (Impact ÷ Effort) for latency, multi-document capabilities, quality, and scalability**
 
-| Feature | Latency Impact | Quality Impact | Effort | Priority | ROI Score |
-|---------|----------------|----------------|--------|----------|-----------|
-| ✅ Smart Vector Store | High | Medium | Low | **DONE** | ⭐⭐⭐⭐⭐ |
-| ✅ Semantic Chunking | Medium | High | Medium | **DONE** | ⭐⭐⭐⭐ |
-| ✅ Adaptive Retrieval Parameters | Medium | High | Medium | **DONE** | ⭐⭐⭐⭐ |
-| **LLM Response Streaming** | **🔴 High** | Medium | Low | **P0** | ⭐⭐⭐⭐⭐ |
-| **Query Response Caching** | **🔴 High** | Low | Medium | **P0** | ⭐⭐⭐⭐ |
-| **Batch Embedding Processing** | **🟡 Medium** | Low | Low | **P0** | ⭐⭐⭐⭐ |
-| **Query Preprocessing Pipeline** | Low | **🔴 High** | High | **P1** | ⭐⭐⭐ |
-| **Retrieval Quality Feedback** | Low | **🟡 Medium** | Medium | **P1** | ⭐⭐⭐ |
-| **Double-Check Mode Integration** | Low | **🟡 Medium** | Low | **P1** | ⭐⭐⭐ |
-| **Hybrid Search (BM25+Vector)** | Low | **🟡 Medium** | High | **P2** | ⭐⭐ |
-| **Cross-Encoder Reranking** | Low | **🟡 Medium** | High | **P2** | ⭐⭐ |
-| Metadata-Aware Search | Low | Low | Medium | **P3** | ⭐ |
-| Storage Management | Low | Low | Medium | **P3** | ⭐ |
-| Document Type Support | Low | Medium | High | **P3** | ⭐ |
+| Feature | Latency Impact | Quality Impact | Multi-Doc Impact | Effort | Priority | ROI Score |
+|---------|----------------|----------------|------------------|--------|----------|-----------|
+| ✅ Smart Vector Store | High | Medium | **🔴 High** | Low | **DONE** | ⭐⭐⭐⭐⭐ |
+| ✅ Semantic Chunking | Medium | High | Medium | Medium | **DONE** | ⭐⭐⭐⭐ |
+| ✅ Adaptive Retrieval Parameters | Medium | High | **🟡 Medium** | Medium | **DONE** | ⭐⭐⭐⭐ |
+| ✅ Batch Embedding Processing | Medium | Low | Low | Low | **DONE** | ⭐⭐⭐⭐ |
+| **LLM Response Streaming** | **🔴 High** | Medium | **🟡 Medium** | Low | **P0** | ⭐⭐⭐⭐⭐ |
+| **Query Response Caching** | **🔴 High** | Low | **🟡 Medium** | Medium | **P0** | ⭐⭐⭐⭐ |
+| **Token-Aware Document Orchestrator** | Medium | Medium | **🔴 High** | High | **P0** | ⭐⭐⭐⭐ |
+| **Multi-Document UI Support** | Low | Low | **🔴 High** | Medium | **P0** | ⭐⭐⭐ |
+| **Precise Token Management** | Low | **🟡 Medium** | **🔴 High** | Low | **P0** | ⭐⭐⭐ |
+| **Query Preprocessing Pipeline** | Low | **🔴 High** | **🟡 Medium** | High | **P1** | ⭐⭐⭐ |
+| **Retrieval Quality Feedback** | Low | **🟡 Medium** | **🟡 Medium** | Medium | **P1** | ⭐⭐⭐ |
+| **Double-Check Mode Integration** | Low | **🟡 Medium** | **🟡 Medium** | Low | **P1** | ⭐⭐⭐ |
+| **Hybrid Search (BM25+Vector)** | Low | **🟡 Medium** | **🟡 Medium** | High | **P2** | ⭐⭐ |
+| **Cross-Encoder Reranking** | Low | **🟡 Medium** | **🟡 Medium** | High | **P2** | ⭐⭐ |
+| Metadata-Aware Search | Low | Low | Low | Medium | **P3** | ⭐ |
+| Storage Management | Low | Low | Low | Medium | **P3** | ⭐ |
+| Document Type Support | Low | Medium | Low | High | **P3** | ⭐ |
 
 **Legend**: 🔴 High Impact | 🟡 Medium Impact | ⭐⭐⭐⭐⭐ Excellent ROI | ⭐⭐⭐ Good ROI
 
+### 🎯 **Critical Token Management Challenge**
+
+**Current Limitation**: Single document queries work well (1,710-4,050 tokens), but multi-document queries exceed the 7K context limit:
+- **2 Documents**: 3,420-8,100 tokens ❌ (exceeds limit)
+- **3+ Documents**: 5,130-12,150+ tokens ❌ (severe context overflow)
+
+**Solution**: **Token-Aware Document Orchestrator** pattern:
+```python
+# Parallel document processing within token budgets
+class MultiDocumentOrchestrator:
+    async def process_query(self, query, documents):
+        # Phase 1: Process each document independently (parallel)
+        doc_results = await asyncio.gather([
+            self.query_single_doc(doc, query, max_tokens=2000)
+            for doc in documents
+        ])
+        
+        # Phase 2: Cross-document synthesis within token limits
+        return await self.synthesize_comparison(doc_results, query)
+```
+
+**Benefits**:
+- **Scalability**: Handles 5+ documents without token overflow
+- **Quality**: Each document gets focused attention
+- **Performance**: Parallel processing (2-3x faster than sequential)
+- **Reliability**: No context window violations
+
 ### Success Metrics & Validation
 
-**Phase 1 Success Criteria (Latency Focus):**
+**Phase 1A Success Criteria (Latency & Foundation):**
 - [x] ✅ Smart Vector Store Management - ACHIEVED: ~90% faster processing for unchanged documents, intelligent caching
 - [x] ✅ Semantic Chunking with sentence boundaries - ACHIEVED: NLTK-based sentence tokenization, sliding window overlap
 - [x] ✅ Adaptive Retrieval Parameters - ACHIEVED: Dynamic k=6-15 based on query complexity, model-aware thresholds
+- [x] ✅ Batch Embedding Processing - ACHIEVED: Uses `embed_documents()` for optimal performance
 - [ ] **LLM Response Streaming** - Target: 50% faster perceived response time (5-15s → immediate streaming)
 - [ ] **Query Response Caching** - Target: 90% speed improvement for repeat queries
-- [ ] **Batch Embedding** - Target: 30% faster document ingestion
 
-**Expected Phase 1 Result**: 40-60% overall latency reduction
+**Expected Phase 1A Result**: 40-60% overall latency reduction
+
+**Phase 1B Success Criteria (Multi-Document Capabilities):**
+- [ ] **Token-Aware Document Orchestrator** - Target: Support 3+ documents without context overflow
+- [ ] **Multi-Document UI Support** - Target: Upload multiple files, select documents for comparison
+- [ ] **Precise Token Management** - Target: Accurate token counting with tiktoken integration
+
+**Expected Phase 1B Result**: Multi-document comparison and cross-analysis capabilities
 
 **Phase 2 Success Criteria (Quality Focus):**
 - [ ] **Query Preprocessing** - Target: 15% improvement in retrieval accuracy (via baseline test suite)
@@ -567,6 +624,21 @@ Then open `http://localhost:8501` in your browser.
 - [ ] **Cross-Encoder Reranking** - Target: 30% improvement in top-3 result relevance
 
 **Expected Phase 3 Result**: Advanced search capabilities matching enterprise-grade systems
+
+### 🎯 **Multi-Document Use Cases Enabled**
+
+**Document Comparison Scenarios:**
+- *"Compare the plaintiff's arguments in Document A versus Document B"*
+- *"Find contradictions between these two court rulings"*
+- *"Summarize common themes across all uploaded legal documents"*
+- *"Which document provides stronger evidence for X claim?"*
+- *"Identify differences in legal precedents cited across documents"*
+
+**Technical Implementation:**
+- **Parallel Processing**: Each document processed independently within token limits
+- **Cross-Document Synthesis**: Intelligent aggregation of results from multiple sources
+- **Source Attribution**: Clear identification of which document provided each piece of information
+- **Scalable Architecture**: Handles 2-5+ documents without performance degradation
 ---
 
 ## 👤 Author Notes
