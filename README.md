@@ -30,20 +30,23 @@ doc-analysis/
 │   ├── metadata/               # Collection metadata and cache statistics
 │   └── temp/                   # Temporary processing files
 ├── data/                        # Sample PDF documents for testing
-├── models/                      # Local BGE embedding models
+├── models/                      # Local embedding models
+│   ├── arctic-embed-33m/       # Snowflake Arctic Embed model (SOTA performance)
+│   ├── all-minilm-l6-v2/       # all-MiniLM model (ultra-fast)
 │   ├── bge-base-en/            # BGE base model files
 │   └── bge-small-en/           # BGE small model files
-├── tests/
-│   ├── test_adaptive_regression.py # Adaptive retrieval integration tests
-│   ├── test_adaptive_retrieval.py  # Adaptive retrieval unit tests
-│   ├── test_baseline.py        # Baseline test suite for embedding model comparison
+├── tests/                       # Comprehensive test suite (10 test files, 60+ test cases)
+│   ├── test_adaptive_regression.py # Adaptive retrieval integration tests (3 tests)
+│   ├── test_adaptive_retrieval.py  # Adaptive retrieval unit tests (10 tests)
+│   ├── test_baseline.py        # Baseline test suite - 5 models x 8 questions (40 scenarios)
 │   ├── test_baseline_smart.py  # Smart Vector Store baseline with caching
-│   ├── test_cache_vs_original.py # Smart vs Original comparison test
-│   ├── test_chunker.py         # Comprehensive chunking unit tests
-│   ├── test_pipeline.py        # Pipeline integration tests
-│   ├── test_smart_vectorstore.py # Smart Vector Store unit tests
-│   └── test_vectorstore_pipeline.py # Vector store specific tests
-├── download_hf_bbg.py          # Script to fetch BGE models from Hugging Face
+│   ├── test_cache_vs_original.py # Smart vs Original performance comparison
+│   ├── test_chunker.py         # Semantic chunking unit tests (13 tests)
+│   ├── test_pipeline.py        # End-to-end pipeline integration tests
+│   ├── test_smart_vectorstore.py # Smart Vector Store unit tests (10 tests)
+│   ├── test_streaming.py       # LLM response streaming tests (11 tests)
+│   └── test_vectorstore_pipeline.py # Vector store integration tests
+├── download_hf_bbg.py          # Script to fetch all embedding models from Hugging Face
 ├── requirements.txt            # Full dependency list
 ├── results.md                  # Test results from baseline comparisons
 ├── results_smart.md            # Smart Vector Store test results
@@ -55,10 +58,12 @@ doc-analysis/
 ## 🚀 Features Implemented
 
 - ✅ Streamlit UI to load PDF, select embedding model, and ask questions
-- ✅ Local embedding support for:
-  - `bge-small-en`
-  - `bge-base-en`
-  - `nomic-embed-text` (via Ollama)
+- ✅ Local embedding support for 5 models with different characteristics:
+  - `arctic-embed-33m` ❄️ **[NEW]** - Snowflake model (33M params, 768D) - Test for your specific use case
+  - `all-minilm-l6-v2` ⚡ **[NEW]** - Compact model (22M params, 384D) - Good speed-to-size ratio
+  - `bge-small-en` - BGE small model (established baseline)
+  - `bge-base-en` - BGE base model (established quality option)  
+  - `nomic-embed-text` - Via Ollama (network-based option)
 - ✅ **Enhanced semantic chunking** with sentence boundaries, sliding window overlap, and page/section detection
 - ✅ Metadata-aware display of chunks in response view:
   - Chunk #
@@ -421,29 +426,45 @@ def metadata_aware_search(query, vectordb, section_filter=None, page_range=None)
 **Estimated Effort**: 12-15 hours
 
 #### 12. **Query Logging / Batch Testing** ✅
-**Status**: Already implemented with comprehensive baseline testing suite
+**Status**: Comprehensive test suite updated for 5 embedding models
 
 **Current Test Coverage**:
-- ✅ **Baseline Regression Tests**: `test_baseline.py` runs 8 comprehensive questions across 3 embedding models (24 test scenarios)
-- ✅ **Pipeline Integration Tests**: `test_pipeline.py` validates document loading and chunking pipeline
-- ✅ **Vectorstore Tests**: `test_vectorstore_pipeline.py` tests complete vectorstore creation and querying
-- ✅ **All Tests Pass**: Tests have been reviewed and updated to work with current codebase (January 2025)
-- ✅ **Auto-Rotation**: Results file automatically rotates when exceeding 1MB to keep repo lightweight
+- ✅ **Enhanced Baseline Tests**: `test_baseline.py` runs 8 questions across **5 embedding models** (40 test scenarios)
+  - Tests: Arctic Embed, all-MiniLM, BGE-Small, BGE-Base, Nomic-Embed
+- ✅ **Smart Vector Store Tests**: `test_baseline_smart.py` includes all 5 models with caching performance
+- ✅ **Comprehensive Unit Tests**: 10 test files covering all components
+  - `test_chunker.py` - 13 tests for semantic chunking
+  - `test_streaming.py` - 11 tests for LLM response streaming
+  - `test_adaptive_retrieval.py` - 10 tests for adaptive retrieval
+  - `test_smart_vectorstore.py` - 10 tests for caching system
+  - `test_adaptive_regression.py` - 3 integration tests
+  - `test_cache_vs_original.py` - Performance comparison tests
+  - `test_pipeline.py` - End-to-end pipeline validation
+  - `test_vectorstore_pipeline.py` - Vector store integration tests
+- ✅ **All Tests Pass**: Updated and verified with new embedding models (December 2024)
+- ✅ **Auto-Rotation**: Results file automatically rotates when exceeding 1MB
 
 **Test Execution**:
 ```bash
-# Run individual tests
-python tests/test_pipeline.py
-python tests/test_vectorstore_pipeline.py
+# Run comprehensive baseline tests (all 5 models)
+python tests/test_baseline.py          # Standard baseline (8-10 minutes)
+python tests/test_baseline_smart.py    # Smart Vector Store baseline
 
-# Run full baseline regression suite (takes 5+ minutes)
-python tests/test_baseline.py
+# Run individual component tests  
+python tests/test_chunker.py           # Semantic chunking tests
+python tests/test_streaming.py         # LLM streaming tests
+python tests/test_adaptive_retrieval.py # Adaptive retrieval tests
+python tests/test_smart_vectorstore.py  # Caching system tests
+
+# Run integration tests
+python tests/test_pipeline.py          # End-to-end pipeline
+python tests/test_cache_vs_original.py # Performance comparison
 ```
 
 **Test Results**: 
-- Saved to `results.md` with detailed model comparisons and answer quality analysis
-- Auto-rotates to `results_backup_YYYYMMDD_HHMMSS.md` when file exceeds 1MB
-- Backup files excluded from git tracking to maintain repo size
+- `results.md` - Detailed model comparisons across all 5 embedding models
+- `results_smart.md` - Smart Vector Store performance with cache statistics
+- Auto-rotation maintains repo size, backup files excluded from git
 
 #### 13. **Persistent Vector Store Pruning**
 **Issue**: Vector store directories accumulate without cleanup.
@@ -477,6 +498,8 @@ class StorageManager:
 
 **Prerequisites**: Python 3.8+ installed
 
+#### Option 1: Local Setup
+
 ```bash
 # 1. Clone or download the repository
 git clone <repository-url>
@@ -490,21 +513,46 @@ python -m venv venv
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. (One-time) Download local BGE models
+# 4. (One-time) Download all local embedding models
 python download_hf_bbg.py
 
 # 5. Run the Streamlit application
 streamlit run app.py
 ```
 
+#### Option 2: DevContainer Setup (Recommended)
+
+If you're using VS Code with DevContainer support:
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd doc-analysis
+
+# 2. Open in VS Code
+code .
+
+# 3. When prompted, click "Reopen in Container"
+# Or use Command Palette: "Dev Containers: Reopen in Container"
+```
+
+The devcontainer will automatically:
+- Set up Python 3.11 environment
+- Install all dependencies
+- Download all 4 local embedding models (Arctic, MiniLM, BGE-Small, BGE-Base)
+- Install and configure Ollama with nomic-embed-text model
+- Configure VS Code with Python extensions
+
 Then open `http://localhost:8501` in your browser.
 
 ### Using the Application
 
-1. **Select Embedding Model**: Choose from:
-   - `bge-small-en` (faster, local)
-   - `bge-base-en` (better quality, local)  
-   - `nomic-embed-text (Ollama)` (requires Ollama installed)
+1. **Select Embedding Model**: Choose from 5 available options:
+   - `arctic-embed-33m (Snowflake)` ❄️ - Newer model worth testing for your use case
+   - `all-minilm-l6-v2 (Fast)` ⚡ - Compact model with good efficiency
+   - `bge-small-en` - Established baseline option
+   - `bge-base-en` - Established higher-capacity option
+   - `nomic-embed-text (Ollama)` - Requires Ollama installed
 
 2. **Upload PDF**: Upload your legal document or analytical text (30-150 pages work best)
 
@@ -514,6 +562,64 @@ Then open `http://localhost:8501` in your browser.
    - Answer synthesized by local LLM
    - Retrieved chunks with similarity scores and section metadata
    - Cache statistics showing performance metrics
+
+### Model Selection & Testing
+
+**Important**: Embedding model performance varies significantly based on document type, query style, and domain. We recommend testing multiple models with your specific documents.
+
+#### Systematic Model Testing
+
+Use the baseline testing suite to compare all models:
+
+```bash
+# Run comprehensive model comparison (takes 5-10 minutes)
+python tests/test_baseline.py
+```
+
+This will test all 5 embedding models with 8 different questions and generate a detailed comparison in `results.md`.
+
+#### Manual Testing Approach
+
+1. **Start with established models**: Try `bge-base-en` and `bge-small-en` first as baselines
+2. **Test new models**: Compare `arctic-embed-33m` and `all-minilm-l6-v2` against your baselines  
+3. **Use consistent queries**: Test the same questions across all models
+4. **Evaluate retrieved chunks**: Check if the right document sections are being found
+5. **Consider use case**: Balance accuracy vs speed based on your specific needs
+
+#### Model Characteristics Summary
+
+| Model | Parameters | Dimensions | Speed | Notes |
+|-------|------------|------------|-------|-------|
+| `all-minilm-l6-v2` | 22M | 384 | Fastest | Good for high-throughput scenarios |
+| `arctic-embed-33m` | 33M | 768 | Fast | Test for your specific domain |
+| `bge-small-en` | ~33M | 384 | Medium | Established baseline |
+| `bge-base-en` | ~109M | 768 | Slower | Established quality option |
+| `nomic-embed-text` | Unknown | 768 | Variable | Requires Ollama service |
+
+---
+
+## 🆕 Recent Updates
+
+### ✅ New Embedding Models Added (December 2024)
+**Expanded embedding model support with 2 additional models for testing:**
+
+- **❄️ Snowflake Arctic Embed 33m** - New option from Snowflake
+  - **Specs**: 33M parameters, 768-dimensional embeddings
+  - **Note**: Performance varies by use case - test with your specific documents
+
+- **⚡ all-MiniLM-L6-v2** - Compact embedding model
+  - **Specs**: 22M parameters, 384-dimensional embeddings
+  - **Note**: Good efficiency for resource-constrained scenarios
+
+**Implementation Details:**
+- Both models downloaded and cached locally (no network dependency during inference)
+- Seamlessly integrated into existing Smart Vector Store architecture
+- Available immediately in Streamlit UI dropdown
+- Full backward compatibility with existing BGE and Ollama models
+
+**Recommendation**: Test different models with your specific documents and queries to determine which works best for your use case. The baseline testing suite (`python tests/test_baseline.py`) can help compare model performance systematically.
+
+**Note**: General benchmarks (like MTEB) may not reflect performance on your specific documents and queries. Always validate with your own testing.
 
 ---
 
@@ -596,6 +702,7 @@ Then open `http://localhost:8501` in your browser.
 | ✅ Adaptive Retrieval Parameters | Medium | High | **🟡 Medium** | Medium | **DONE** | ⭐⭐⭐⭐ |
 | ✅ Batch Embedding Processing | Medium | Low | Low | Low | **DONE** | ⭐⭐⭐⭐ |
 | ✅ **LLM Response Streaming** | **🔴 High** | Medium | **🟡 Medium** | Low | **DONE** | ⭐⭐⭐⭐⭐ |
+| ✅ **New Embedding Models (Arctic/MiniLM)** | **🟡 Medium** | **🟡 Medium** | **🟡 Medium** | Low | **DONE** | ⭐⭐⭐ |
 | **Query Response Caching** | **🔴 High** | Low | **🟡 Medium** | Medium | **P0** | ⭐⭐⭐⭐ |
 | **Token-Aware Document Orchestrator** | Medium | Medium | **🔴 High** | High | **P0** | ⭐⭐⭐⭐ |
 | **Multi-Document UI Support** | Low | Low | **🔴 High** | Medium | **P0** | ⭐⭐⭐ |

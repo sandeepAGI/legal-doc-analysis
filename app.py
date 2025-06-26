@@ -16,14 +16,37 @@ MODEL_ROOT = "/Users/sandeepmangaraj/myworkspace/Utilities/doc-analysis/models"
 # Embedding model selection
 embed_model_option = st.selectbox(
     "Select embedding model:",
-    ["bge-small-en", "bge-base-en", "nomic-embed-text (Ollama)"]
+    [
+        "arctic-embed-33m (Snowflake)",
+        "all-minilm-l6-v2 (Fast)",
+        "bge-small-en", 
+        "bge-base-en", 
+        "nomic-embed-text (Ollama)"
+    ]
 )
 
 # Streaming toggle
 enable_streaming = st.checkbox("Enable Streaming Response", value=True, help="Stream LLM response in real-time for faster perceived response")
 
-use_ollama = embed_model_option == "nomic-embed-text (Ollama)"
-model_path = None if use_ollama else os.path.join(MODEL_ROOT, embed_model_option)
+# Parse model selection
+if embed_model_option == "nomic-embed-text (Ollama)":
+    use_ollama = True
+    model_path = None
+    model_name = "nomic-embed-text"
+elif embed_model_option == "arctic-embed-33m (Snowflake)":
+    use_ollama = False
+    model_path = None
+    model_name = "arctic-embed-33m"
+elif embed_model_option == "all-minilm-l6-v2 (Fast)":
+    use_ollama = False
+    model_path = None
+    model_name = "all-minilm-l6-v2"
+else:
+    # BGE models (local)
+    use_ollama = False
+    model_name = None
+    clean_model_name = embed_model_option.split(" ")[0]  # Remove any descriptive text
+    model_path = os.path.join(MODEL_ROOT, clean_model_name)
 
 uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
 query = st.text_input("Ask a question about the document:")
@@ -64,10 +87,10 @@ if uploaded_file and query:
         chunks = semantic_chunk(full_text, max_chunk_size=1000)
 
         # Initialize embedder
-        embedder = get_embedder(local_model_path=model_path)
+        embedder = get_embedder(local_model_path=model_path, model_name=model_name)
 
         # Get embedding model name for fingerprinting
-        embedding_model = embed_model_option.replace(" (Ollama)", "")
+        embedding_model = embed_model_option.replace(" (Ollama)", "").replace(" (Snowflake)", "").replace(" (Fast)", "")
         
         # Chunking parameters for fingerprinting
         chunk_params = {"max_chunk_size": 1000, "overlap_size": 200}

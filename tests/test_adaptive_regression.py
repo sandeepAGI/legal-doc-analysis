@@ -2,7 +2,12 @@
 
 import unittest
 import os
+import sys
 import tempfile
+
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from backend.loader import load_document
 from backend.chunker import semantic_chunk
 from backend.embedder import get_embedder

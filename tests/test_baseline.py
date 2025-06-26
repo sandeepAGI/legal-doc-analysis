@@ -38,9 +38,11 @@ QUESTIONS = [
 
 # Embedding models to test
 EMBEDDING_MODELS = [
-    {"name": "bge-small-en", "path": os.path.join(MODEL_ROOT, "bge-small-en"), "ollama": False},
-    {"name": "bge-base-en", "path": os.path.join(MODEL_ROOT, "bge-base-en"), "ollama": False},
-    {"name": "nomic-embed-text", "path": None, "ollama": True}
+    {"name": "arctic-embed-33m", "path": None, "ollama": False, "model_name": "arctic-embed-33m"},
+    {"name": "all-minilm-l6-v2", "path": None, "ollama": False, "model_name": "all-minilm-l6-v2"},
+    {"name": "bge-small-en", "path": os.path.join(MODEL_ROOT, "bge-small-en"), "ollama": False, "model_name": None},
+    {"name": "bge-base-en", "path": os.path.join(MODEL_ROOT, "bge-base-en"), "ollama": False, "model_name": None},
+    {"name": "nomic-embed-text", "path": None, "ollama": True, "model_name": "nomic-embed-text"}
 ]
 
 def run_qa_pipeline(pdf_path, question, model_config):
@@ -52,7 +54,10 @@ def run_qa_pipeline(pdf_path, question, model_config):
     chunks = semantic_chunk(full_text, max_chunk_size=1000)
     
     # Initialize embedder
-    embedder = get_embedder(local_model_path=model_config['path'])
+    embedder = get_embedder(
+        local_model_path=model_config['path'], 
+        model_name=model_config.get('model_name')
+    )
     
     # Create unique persist directory for each model to avoid dimension conflicts
     persist_dir = f"chroma_store_{model_config['name']}"

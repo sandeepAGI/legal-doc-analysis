@@ -37,9 +37,11 @@ QUESTIONS = [
 
 # Embedding models to test
 EMBEDDING_MODELS = [
-    {"name": "bge-small-en", "path": os.path.join(MODEL_ROOT, "bge-small-en"), "ollama": False},
-    {"name": "bge-base-en", "path": os.path.join(MODEL_ROOT, "bge-base-en"), "ollama": False},
-    {"name": "nomic-embed-text", "path": None, "ollama": True}
+    {"name": "arctic-embed-33m", "path": None, "ollama": False, "model_name": "arctic-embed-33m"},
+    {"name": "all-minilm-l6-v2", "path": None, "ollama": False, "model_name": "all-minilm-l6-v2"},
+    {"name": "bge-small-en", "path": os.path.join(MODEL_ROOT, "bge-small-en"), "ollama": False, "model_name": None},
+    {"name": "bge-base-en", "path": os.path.join(MODEL_ROOT, "bge-base-en"), "ollama": False, "model_name": None},
+    {"name": "nomic-embed-text", "path": None, "ollama": True, "model_name": "nomic-embed-text"}
 ]
 
 def run_qa_pipeline_smart(pdf_path, question, model_config, smart_vs, full_text, chunks):
@@ -49,7 +51,10 @@ def run_qa_pipeline_smart(pdf_path, question, model_config, smart_vs, full_text,
     start_time = time.time()
     
     # Initialize embedder
-    embedder = get_embedder(local_model_path=model_config['path'])
+    embedder = get_embedder(
+        local_model_path=model_config['path'], 
+        model_name=model_config.get('model_name')
+    )
     
     # Chunking parameters for fingerprinting
     chunk_params = {"max_chunk_size": 1000, "overlap_size": 200}
@@ -162,6 +167,9 @@ def main():
     with open(RESULTS_FILE, 'w', encoding='utf-8') as f:
         f.write("# Smart Vector Store Baseline Test Results\n\n")
         f.write("This file contains results from baseline testing using Smart Vector Store with intelligent caching.\n\n")
+        f.write(f"**PDF File:** {PDF_PATH}\n")
+        f.write(f"**Number of Questions:** {len(QUESTIONS)}\n")
+        f.write(f"**Embedding Models Tested:** {len(EMBEDDING_MODELS)}\n\n")
     
     results = []
     total_start_time = time.time()

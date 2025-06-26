@@ -36,3 +36,9 @@ test_*/
 # Test files and results
 test_results.md
 *_backup_*.md
+
+# Temporary files from new models
+temp_original_*/
+
+# Model download script output
+download_log.txt

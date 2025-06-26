@@ -91,8 +91,8 @@ def test_smart_vectorstore(pdf_path, question, model_config, full_text, chunks, 
         document_info=document_info
     )
     
-    # Query vector store
-    retrieved = smart_vs.query_vectorstore(vectordb, question, k=10)
+    # Query vector store (returns tuple with metadata now)
+    retrieved, metadata = smart_vs.query_vectorstore(vectordb, question, k=10, adaptive=False)
     
     # Generate answer
     answer = synthesize_answer(question, retrieved)
