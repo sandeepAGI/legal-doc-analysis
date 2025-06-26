@@ -473,71 +473,100 @@ Then open `http://localhost:8501` in your browser.
 ---
 
 ## 🧭 Implementation Roadmap & Prioritization
+**Revised Priority Focus: (a) Latency Improvements, (b) Response Quality, (c) Future Scalability**
 
-### Phase 1: Foundation Fixes (Week 1-2) - **Total: 25-35 hours**
-**Priority: Fix core retrieval issues that impact all queries**
+### Phase 1: Immediate Latency Wins (Week 1-2) - **Total: 13-18 hours**
+**Priority: Eliminate performance bottlenecks for 50% speed improvement**
 
-**Quick Wins (4-6 hours each):**
-1. ✅ **Smart Vector Store Management** - COMPLETED: Document fingerprinting, caching, and storage management
-2. ✅ **Adaptive Retrieval Parameters** - COMPLETED: Dynamic k selection with model-aware thresholds
-3. **Double-Check Mode Integration** - Wire existing prompt into UI toggle
-4. **Retrieval Quality Validation** - Add score thresholds and confidence bands
+**🔴 Critical Latency Fixes:**
+1. **LLM Response Streaming** (4-6 hours) - Replace blocking `llm.invoke()` with `llm.stream()` 
+   - **Impact**: 50% faster perceived response time (5-15 seconds → immediate streaming)
+   - **Effort**: Low - modify `llm_wrapper.py` and `app.py` streaming display
+2. **Query Response Caching** (6-8 hours) - Cache LLM responses for repeat queries
+   - **Impact**: 90% speed boost for duplicate questions
+   - **Effort**: Medium - add Redis-like caching layer with query fingerprinting
+3. **Batch Embedding Processing** (3-4 hours) - Use `embed_documents()` instead of sequential calls
+   - **Impact**: 30% faster document ingestion for large PDFs
+   - **Effort**: Low - modify document ingestion pipeline
 
-**Medium Effort (6-8 hours each):**
-5. ✅ **Semantic Chunking Improvements** - COMPLETED: Sentence boundaries and sliding window overlap
-6. **Metadata-Aware Retrieval** - Leverage existing page/section metadata for filtering
+**Expected Impact**: 40-60% overall latency reduction, dramatically improved user experience
 
-### Phase 2: Advanced Retrieval (Week 3-4) - **Total: 26-30 hours**
-**Priority: Enhance retrieval accuracy and recall**
+### Phase 2: Quality & Intelligence Upgrades (Week 3-4) - **Total: 17-23 hours**
+**Priority: Enhance response accuracy and user confidence**
 
-**High Impact Features:**
+**🟡 Response Quality Focus:**
 1. **Query Preprocessing Pipeline** (8-10 hours) - Spell correction, legal term expansion
-2. **Hybrid Search Implementation** (10-12 hours) - BM25 + vector fusion with RRF
-3. **Cross-Encoder Reranking** (8-10 hours) - Precise relevance scoring for top results
+   - **Impact**: 15% improvement in retrieval accuracy
+   - **Implementation**: `pyspellchecker` + legal terminology dictionary
+2. **Double-Check Mode Integration** (4-6 hours) - Wire existing prompt into UI toggle
+   - **Impact**: Better verification for complex queries
+   - **Effort**: Low - UI toggle + prompt routing logic
+3. **Retrieval Quality Feedback** (5-7 hours) - User-visible confidence scores and result validation
+   - **Impact**: Improved user confidence and query refinement
+   - **Implementation**: Score thresholds, quality bands (high/medium/low)
 
-### Phase 3: Infrastructure & Polish (Week 5-6) - **Total: 18-23 hours**
-**Priority: Scalability and user experience**
+**Expected Impact**: 15-25% improvement in response accuracy and user trust
 
-**Infrastructure:**
-1. **Storage Management** (6-8 hours) - Automatic cleanup and disk monitoring
-2. **Document Type Support** (12-15 hours) - Multi-format chunking and metadata extraction
+### Phase 3: Advanced Retrieval & Scale (Week 5-6) - **Total: 18-22 hours**
+**Priority: Future-proof with advanced search capabilities**
 
-**Estimated Total Effort: 69-88 hours (9-11 weeks part-time)**
+**🟢 Advanced Features:**
+1. **Hybrid Search (BM25+Vector)** (10-12 hours) - Keyword + semantic search fusion
+   - **Impact**: 25% recall improvement for specific legal terms
+   - **Dependencies**: `rank_bm25`, Reciprocal Rank Fusion implementation
+2. **Cross-Encoder Reranking** (8-10 hours) - Precise relevance scoring for retrieved chunks
+   - **Impact**: 30% improvement in top-3 result relevance
+   - **Dependencies**: `sentence-transformers` cross-encoder models
+
+**Estimated Total Effort: 48-63 hours (6-8 weeks part-time)**
+**ROI-Optimized**: Focuses on biggest impact items first
 
 ### Implementation Priority Matrix
+**Ranked by ROI (Impact ÷ Effort) for latency, quality, and scalability**
 
-| Feature | Impact | Effort | Priority | Dependencies |
-|---------|--------|--------|----------|--------------|
-| ✅ Smart Vector Store | High | Low | **DONE** | None |
-| ✅ Semantic Chunking | High | Medium | **DONE** | NLTK |
-| ✅ Adaptive Retrieval Parameters | High | Medium | **DONE** | Query analysis |
-| Retrieval Quality Validation | High | Medium | **P0** | None |
-| Query Preprocessing | High | High | **P1** | Legal dictionary |
-| Hybrid Search | Medium | High | **P2** | BM25, score fusion |
-| Cross-Encoder Reranking | Medium | High | **P2** | sentence-transformers |
-| Double-Check Mode | Low | Low | **P2** | UI updates |
-| Metadata-Aware Search | Medium | Medium | **P2** | UI controls |
-| Storage Management | Low | Medium | **P3** | Background services |
-| Document Type Support | Medium | High | **P3** | ML classification |
+| Feature | Latency Impact | Quality Impact | Effort | Priority | ROI Score |
+|---------|----------------|----------------|--------|----------|-----------|
+| ✅ Smart Vector Store | High | Medium | Low | **DONE** | ⭐⭐⭐⭐⭐ |
+| ✅ Semantic Chunking | Medium | High | Medium | **DONE** | ⭐⭐⭐⭐ |
+| ✅ Adaptive Retrieval Parameters | Medium | High | Medium | **DONE** | ⭐⭐⭐⭐ |
+| **LLM Response Streaming** | **🔴 High** | Medium | Low | **P0** | ⭐⭐⭐⭐⭐ |
+| **Query Response Caching** | **🔴 High** | Low | Medium | **P0** | ⭐⭐⭐⭐ |
+| **Batch Embedding Processing** | **🟡 Medium** | Low | Low | **P0** | ⭐⭐⭐⭐ |
+| **Query Preprocessing Pipeline** | Low | **🔴 High** | High | **P1** | ⭐⭐⭐ |
+| **Retrieval Quality Feedback** | Low | **🟡 Medium** | Medium | **P1** | ⭐⭐⭐ |
+| **Double-Check Mode Integration** | Low | **🟡 Medium** | Low | **P1** | ⭐⭐⭐ |
+| **Hybrid Search (BM25+Vector)** | Low | **🟡 Medium** | High | **P2** | ⭐⭐ |
+| **Cross-Encoder Reranking** | Low | **🟡 Medium** | High | **P2** | ⭐⭐ |
+| Metadata-Aware Search | Low | Low | Medium | **P3** | ⭐ |
+| Storage Management | Low | Low | Medium | **P3** | ⭐ |
+| Document Type Support | Low | Medium | High | **P3** | ⭐ |
+
+**Legend**: 🔴 High Impact | 🟡 Medium Impact | ⭐⭐⭐⭐⭐ Excellent ROI | ⭐⭐⭐ Good ROI
 
 ### Success Metrics & Validation
 
-**Phase 1 Success Criteria:**
+**Phase 1 Success Criteria (Latency Focus):**
 - [x] ✅ Smart Vector Store Management - ACHIEVED: ~90% faster processing for unchanged documents, intelligent caching
 - [x] ✅ Semantic Chunking with sentence boundaries - ACHIEVED: NLTK-based sentence tokenization, sliding window overlap
 - [x] ✅ Adaptive Retrieval Parameters - ACHIEVED: Dynamic k=6-15 based on query complexity, model-aware thresholds
-- [ ] Retrieval quality scores visible to users (measure: user confidence)
-- [ ] Double-check mode integration for enhanced verification
+- [ ] **LLM Response Streaming** - Target: 50% faster perceived response time (5-15s → immediate streaming)
+- [ ] **Query Response Caching** - Target: 90% speed improvement for repeat queries
+- [ ] **Batch Embedding** - Target: 30% faster document ingestion
 
-**Phase 2 Success Criteria:**
-- [ ] Query preprocessing improves retrieval accuracy by 15% (measured via test suite)
-- [ ] Hybrid search increases recall for specific legal terms by 25%
-- [ ] Cross-encoder reranking improves top-3 relevance by 30%
+**Expected Phase 1 Result**: 40-60% overall latency reduction
 
-**Phase 3 Success Criteria:**
-- [ ] Storage usage optimization (measure: disk space reduction)
-- [ ] Support for 3+ document types with type-specific handling
-- [ ] User satisfaction scores improve by 20% (via feedback integration)
+**Phase 2 Success Criteria (Quality Focus):**
+- [ ] **Query Preprocessing** - Target: 15% improvement in retrieval accuracy (via baseline test suite)
+- [ ] **Retrieval Quality Feedback** - Target: User confidence scores visible, quality bands implemented
+- [ ] **Double-Check Mode** - Target: Enhanced verification for complex queries with UI toggle
+
+**Expected Phase 2 Result**: 15-25% improvement in response accuracy and user trust
+
+**Phase 3 Success Criteria (Advanced Features):**
+- [ ] **Hybrid Search** - Target: 25% recall improvement for specific legal terms
+- [ ] **Cross-Encoder Reranking** - Target: 30% improvement in top-3 result relevance
+
+**Expected Phase 3 Result**: Advanced search capabilities matching enterprise-grade systems
 ---
 
 ## 👤 Author Notes
