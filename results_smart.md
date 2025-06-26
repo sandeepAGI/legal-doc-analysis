@@ -3,27 +3,27 @@
 This file contains results from baseline testing using Smart Vector Store with intelligent caching.
 
 
-## Smart Vector Store Baseline Results - 2025-06-23 09:13:28
+## Smart Vector Store Baseline Results - 2025-06-26 06:34:39
 
 ### 📊 Cache Performance Summary
 
-- **Cache Hit Rate**: 97.4%
-- **Total Requests**: 115
-- **Cache Hits**: 112
+- **Cache Hit Rate**: 98.0%
+- **Total Requests**: 146
+- **Cache Hits**: 143
 - **Cache Misses**: 3
 - **Storage Usage**: 0.001 GB
 
 ### Model: bge-small-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 17.65s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 21.85s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants violated § 11 of the Securities Act because the Offering Documents contained material misstatements and omissions. Specifically, the plaintiff alleges that the risk factors disclosed in the Offering Documents were misleading because two of the risks which had already materialized were described as hypothetical risks.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 6.87s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 6.94s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
@@ -36,7 +36,7 @@ These individuals are mentioned as being sued by the plaintiff for allegedly vio
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.92s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 14.03s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
@@ -49,7 +49,7 @@ The plaintiff argued that these issues made the ARR metric artificially inflated
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 17.41s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 17.53s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, it appears that UiPath allegedly misled investors during the IPO in several ways:
 
@@ -63,7 +63,7 @@ These allegations are based on statements made by UiPath in its offering documen
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 20.91s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 21.08s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, the court dismissed the Section 11 claims because:
 
@@ -79,7 +79,7 @@ Overall, the court dismissed the Section 11 claims because they were untimely an
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 23.15s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 23.47s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the opinion states that to state a claim for material misrepresentations or omissions under Rule 10b-5(b), a plaintiff must plead:
 
@@ -99,7 +99,7 @@ In summary, the opinion emphasizes the importance of pleading material misrepres
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 12.52s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 12.86s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023, by Samhita Gera as a putative class action. Paul Severt was later appointed as lead plaintiff on December 1, 2023.
 
@@ -110,19 +110,19 @@ The relevant excerpt is: "This action was filed on September 6, 2023 by Samhita 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 7.50s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 7.83s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, what happened on September 27, 2022, is that UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform . . . in ways that clearly resonate with our customers."
 
 ---
 
 
-**Total processing time for bge-small-en: 119.92s**
+**Total processing time for bge-small-en: 125.58s**
 
 ### Model: bge-base-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 18.82s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 18.81s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants (UiPath's management) made misleading statements and omissions in the Offering Documents, which masked UiPath's difficulties in gaining and retaining customers and the impact of competitors such as Microsoft. The plaintiff alleges that these misstatements and omissions violated Section 11 of the Securities Act, which requires companies to make a "full and fair disclosure of information" in connection with a public offering.
 
@@ -138,7 +138,7 @@ The plaintiff argues that these misstatements and omissions caused investors to 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 9.50s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 10.10s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
@@ -153,7 +153,7 @@ Specifically, excerpt 2 states: "The two individual defendants are Daniel Dines,
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.20s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.48s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: The plaintiff raised several issues about the ARR (Annualized Renewal Run-Rate) metric:
 
@@ -166,7 +166,7 @@ The plaintiff argued that these issues made the ARR metric artificially inflated
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 17.36s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 17.18s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, it appears that UiPath allegedly misled investors during the IPO by:
 
@@ -182,7 +182,7 @@ The excerpts also suggest that UiPath repeatedly warned investors about the limi
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 18.87s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 18.75s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the court's reasons for dismissing the Section 11 claims are:
 
@@ -197,7 +197,7 @@ Overall, the court found that the plaintiff did not adequately plead a Section 1
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 18.32s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 18.83s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts from Local 773 Pension Fund v. Danske Bank A/S, I conclude that the opinion states that:
 
@@ -213,14 +213,14 @@ The opinion cites Macquarie Infrastructure Corp. v. Moab Partners, L.P., 601 U.S
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 9.97s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 10.04s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 13.67s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 13.73s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, it appears that on September 27, 2022, UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform... in ways that clearly resonate with our customers." This statement suggests that UiPath was acknowledging difficulties in its sales strategy and customer engagement.
 
@@ -233,19 +233,19 @@ Therefore, the answer to the question "What happened on September 27, 2022?" is 
 ---
 
 
-**Total processing time for bge-base-en: 119.71s**
+**Total processing time for bge-base-en: 120.93s**
 
 ### Model: nomic-embed-text
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 12.84s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.33s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants, UiPath and its executives, omitted material information from the Offering Documents in violation of a duty to disclose. This omission allegedly occurred in 2021, when the Offering Documents were filed, and the plaintiff claims that this omission was a "known trend" that UiPath had been facing problems competing with Microsoft since 2020.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 6.48s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 6.32s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
@@ -256,7 +256,7 @@ These individuals and the company UiPath, Inc. have moved to dismiss each of the
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.22s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.30s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
@@ -269,7 +269,7 @@ These issues were raised in the SAC (Statement of Alleged Claims) and are discus
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 21.80s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 21.88s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, it appears that the SAC (Securities Class Action) alleges that UiPath misled investors during the IPO by making four sets of misrepresentations:
 
@@ -289,7 +289,7 @@ Therefore, it appears that the court has granted the motion to dismiss some of t
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 20.78s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 21.60s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the court dismissed the Section 11 claims because they were time-barred. The plaintiff did not plead a plausible claim under Section 11, and the original complaint filed in September 2023 did not include a Section 11 claim. Therefore, the one-year statute of limitations period began when the plaintiff discovered or should have discovered the untrue statement or omission, which was after the filing of the original complaint.
 
@@ -302,7 +302,7 @@ In summary, the court dismissed the Section 11 claims because they were time-bar
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 24.89s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 25.71s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts from Local 773 Pension Fund v. Danske Bank A/S, here is my analysis:
 
@@ -321,7 +321,7 @@ Therefore, based on these excerpts, I conclude that:
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 16.36s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 16.41s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
@@ -334,7 +334,7 @@ This excerpt clearly states that the lawsuit was filed on September 6, 2023 and 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 4.25s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
+*Processing time: 4.26s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
 
 A: Based on the provided excerpts, there is no information about what happened on September 27, 2022. The excerpts only mention events that occurred before or after this date, such as the IPO on April 23, 2021, and post-IPO filings and statements.
 
@@ -344,5 +344,5 @@ Therefore, I would answer:
 
 ---
 
-**Total processing time for nomic-embed-text: 120.62s**
+**Total processing time for nomic-embed-text: 122.81s**
 

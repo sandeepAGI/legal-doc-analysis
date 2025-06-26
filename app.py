@@ -5,7 +5,7 @@ from backend.loader import load_document
 from backend.chunker import semantic_chunk
 from backend.embedder import get_embedder
 from backend.smart_vectorstore import SmartVectorStore
-from backend.llm_wrapper import synthesize_answer
+from backend.llm_wrapper import synthesize_answer, synthesize_answer_stream
 
 st.set_page_config(page_title="Document Analyzer", layout="wide")
 st.title("📄 Legal Document Q&A (Local LLM)")
@@ -18,6 +18,9 @@ embed_model_option = st.selectbox(
     "Select embedding model:",
     ["bge-small-en", "bge-base-en", "nomic-embed-text (Ollama)"]
 )
+
+# Streaming toggle
+enable_streaming = st.checkbox("Enable Streaming Response", value=True, help="Stream LLM response in real-time for faster perceived response")
 
 use_ollama = embed_model_option == "nomic-embed-text (Ollama)"
 model_path = None if use_ollama else os.path.join(MODEL_ROOT, embed_model_option)
@@ -92,10 +95,23 @@ if uploaded_file and query:
         )
 
         # Synthesize answer using LLM
-        answer = synthesize_answer(query, retrieved)
-
         st.subheader("Answer")
-        st.write(answer)
+        
+        if enable_streaming:
+            # Streaming response
+            answer_container = st.empty()
+            full_answer = ""
+            
+            for chunk in synthesize_answer_stream(query, retrieved):
+                full_answer += chunk
+                answer_container.markdown(full_answer + "▊")  # Show cursor while streaming
+            
+            # Remove cursor after completion
+            answer_container.markdown(full_answer)
+        else:
+            # Non-streaming response (original behavior)
+            answer = synthesize_answer(query, retrieved)
+            st.write(answer)
         
         # Show retrieval strategy info
         if retrieval_metadata:

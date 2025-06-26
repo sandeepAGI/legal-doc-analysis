@@ -10,3 +10,12 @@ def synthesize_answer(query, retrieved_chunks, llm=None):
     context = "\n\n".join(doc.page_content for doc, _ in retrieved_chunks)
     prompt = QNA_PROMPT_TEMPLATE.format(context=context, question=query)
     return llm.invoke(prompt)
+
+def synthesize_answer_stream(query, retrieved_chunks, llm=None):
+    """Streaming version of synthesize_answer that yields response chunks."""
+    if not llm:
+        llm = get_llm()
+    context = "\n\n".join(doc.page_content for doc, _ in retrieved_chunks)
+    prompt = QNA_PROMPT_TEMPLATE.format(context=context, question=query)
+    for chunk in llm.stream(prompt):
+        yield chunk
