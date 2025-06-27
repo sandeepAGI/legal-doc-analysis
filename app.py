@@ -5,7 +5,7 @@ from backend.loader import load_document
 from backend.chunker import semantic_chunk
 from backend.embedder import get_embedder
 from backend.smart_vectorstore import SmartVectorStore
-from backend.llm_wrapper import synthesize_answer, synthesize_answer_stream
+from backend.llm_wrapper import synthesize_answer_cached, synthesize_answer_stream_cached, get_query_cache_stats, cleanup_query_cache
 
 st.set_page_config(page_title="Document Analyzer", layout="wide")
 st.title("📄 Legal Document Q&A (Local LLM)")
@@ -74,6 +74,25 @@ with st.sidebar:
     if st.button("🧹 Force Cleanup"):
         smart_vs.force_cleanup()
         st.success("Cache cleanup completed!")
+    
+    # Query cache statistics
+    st.subheader("🧠 Query Cache")
+    query_cache_stats = get_query_cache_stats()
+    
+    col3, col4 = st.columns(2)
+    with col3:
+        st.metric("Query Hits", query_cache_stats["hits"])
+        st.metric("Query Misses", query_cache_stats["misses"])
+    with col4:
+        st.metric("Query Hit Rate", f"{query_cache_stats['hit_rate']:.1%}")
+        st.metric("Total Queries", query_cache_stats["total_queries"])
+    
+    if st.button("🧹 Cleanup Query Cache"):
+        cleanup_result = cleanup_query_cache()
+        if cleanup_result['total_removed'] > 0:
+            st.success(f"Removed {cleanup_result['total_removed']} cached queries ({cleanup_result['expired_removed']} expired, {cleanup_result['lru_removed']} LRU)")
+        else:
+            st.info("No cleanup needed - cache is healthy!")
 
 if uploaded_file and query:
     with st.spinner("Processing..."):
@@ -125,7 +144,7 @@ if uploaded_file and query:
             answer_container = st.empty()
             full_answer = ""
             
-            for chunk in synthesize_answer_stream(query, retrieved):
+            for chunk in synthesize_answer_stream_cached(query, retrieved):
                 full_answer += chunk
                 answer_container.markdown(full_answer + "▊")  # Show cursor while streaming
             
@@ -133,7 +152,7 @@ if uploaded_file and query:
             answer_container.markdown(full_answer)
         else:
             # Non-streaming response (original behavior)
-            answer = synthesize_answer(query, retrieved)
+            answer = synthesize_answer_cached(query, retrieved)
             st.write(answer)
         
         # Show retrieval strategy info

@@ -22,6 +22,7 @@ __pycache__/
 data/
 */data/
 chroma_store*/
+chroma_stores/query_cache/
 test_*/
 *.pdf
 
