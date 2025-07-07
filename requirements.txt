@@ -13,6 +13,9 @@ nltk==3.8.1
 # Sentence transformers for embedding models  
 sentence-transformers>=2.6.0
 
+# Transformers for Llama tokenizer
+transformers>=4.30.0
+
 # LangChain ecosystem for future phases
 langchain==0.1.14
 chromadb==0.3.29

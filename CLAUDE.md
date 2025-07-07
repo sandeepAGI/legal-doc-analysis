@@ -1,7 +1,6 @@
-Please review README and do a quick scan of the code base to understand current state
-We will next focus on Querry response caching to complete Phase 1A
-Propose an approach that makes the least amount of change to exiting code
-After implementation, develop and execute unit test, followed by regression testing
-Update gitignore and devcontainer as needed
-Finally remove any temporary files that you create and update README
-In the end, confirm whether the code is ready to commit
+Let us start with the next item on our backlog - building a token aware document orchestrator
+I would like this orchestrator to be dynamic, that looks at all the documents shared with it, the question that is being asked and then make a decision how and what to orchestrate in parallel
+Please come up with a plan that we can review, refine and revise as needed before undertaking any coding
+Develop unit test to test all changes that are implemented
+Run regression tests and only after all tests pass, should we decide whether we are ready to commit changes
+Update README.md reflecting all updates

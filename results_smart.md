@@ -7,200 +7,193 @@ This file contains results from baseline testing using Smart Vector Store with i
 **Embedding Models Tested:** 5
 
 
-## Smart Vector Store Baseline Results - 2025-06-26 11:35:54
+## Smart Vector Store Baseline Results - 2025-06-26 23:32:50
 
 ### 📊 Cache Performance Summary
 
-- **Cache Hit Rate**: 97.1%
-- **Total Requests**: 206
-- **Cache Hits**: 200
-- **Cache Misses**: 6
-- **Storage Usage**: 0.002 GB
+- **Cache Hit Rate**: 96.9%
+- **Total Requests**: 260
+- **Cache Hits**: 252
+- **Cache Misses**: 8
+- **Storage Usage**: 0.003 GB
 
 ### Model: arctic-embed-33m
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 65.69s | Retrieved chunks: 2 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 500*
+*Processing time: 61.45s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the provided excerpts, the core allegation made by the plaintiff is not explicitly stated in these excerpts. However, we can infer that the plaintiff alleged some kind of securities violation or misrepresentation by UiPath and its executives, as the defendants have moved to dismiss each of the plaintiff's claims.
-
-The excerpts do mention specific legal theories, such as § 11 claim, scienter, reliance, and strict liability, which suggests that the plaintiff may have alleged some form of securities fraud or misrepresentation. However, without further information from the complaint or other relevant documents, it is difficult to pinpoint a specific core allegation made by the plaintiff.
-
-Therefore, I would answer this question with: "The core allegation made by the plaintiff is not explicitly stated in these excerpts."
+A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants, including UiPath and its executives, made misleading statements in the prospectus regarding the company's financial condition, business, and results of operations. The plaintiff alleges that these statements were false or omitted material information, which led to a decline in the value of the securities purchased by investors.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 3.63s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
+*Processing time: 7.01s | Retrieved chunks: 3 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 750*
 
-A: Based on the excerpts, the defendants in this securities litigation are:
+A: Based on the excerpts provided, the defendants in this securities litigation are:
 
 * UiPath
-* Two of its executives
+* Two of its executives (names not specified)
 
-This is stated in the first sentence: "This securities litigation was filed in 2023 against UiPath and two of its executives."
+These conclusions are supported by the following relevant portions from the excerpts:
 
-The motion to dismiss is being made by these defendants, and the court has granted the motion in part.
+* The first excerpt states that "the defendants have moved to dismiss each of the plaintiff's claims."
+* The second excerpt mentions that the defendants will face a burden of proving scienter and reliance, among other things, which suggests that they are being sued as individuals.
+
+Therefore, it can be concluded that the defendants in this case are UiPath and two of its executives.
 
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 12.00s | Retrieved chunks: 4 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 1000*
+*Processing time: 13.71s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts provided, the plaintiff raised an issue with the Automated Revenue Recognition (ARR) metric used by UiPath in its filings with the SEC. Specifically, the plaintiff faulted UiPath for adopting a unique measure of its operations (ARR) and not providing a clear explanation of why it was using this metric instead of reporting GAAP-compliant financial results.
+A: Based on the excerpts provided, the plaintiff raised several issues regarding the ARR (Annual Recurring Revenue) metric:
 
-The plaintiff's argument is that ARR is not a reliable indicator of future revenue and that investors should not rely on it as an indicator of the company's expected results. The plaintiff also pointed out that UiPath repeatedly warned investors that ARR is not a forecast of future revenue, but rather a measure of customer commitment period-over-period.
+1. The plaintiff argued that UiPath's use of ARR as a key metric was misleading because it did not accurately reflect the company's future revenue.
+2. The plaintiff claimed that UiPath failed to disclose the limitations and potential flaws in the ARR metric, leading investors to rely too heavily on it.
+3. The plaintiff alleged that the company's disclosures about ARR were incomplete or inaccurate, which misled investors.
 
-However, the court found that the plaintiff failed to explain why UiPath was not free to develop and use a bespoke measurement tool (ARR) as long as it did so accurately. The court also noted that the prospectus statement at issue is immediately illustrated by data which the plaintiff does not challenge as inaccurate, and that the graph in the prospectus shows six years of growth in ARR data.
-
-Therefore, the key issue raised by the plaintiff is the reliability and accuracy of the ARR metric used by UiPath to measure its operations.
+These issues are raised in the context of a securities litigation case against UiPath and its executives, with the plaintiff arguing that the defendants' statements regarding ARR were false or misleading and caused harm to investors.
 
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 16.02s | Retrieved chunks: 8 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2000*
+*Processing time: 19.35s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts provided, it appears that the plaintiff alleges that UiPath misled investors during the IPO by using a misleading metric, Annualized Renewal Run-Rate ("ARR"), to suggest that the company's business was growing and performing well. The plaintiff claims that ARR was not an accurate measure of revenue and did not reflect the actual financial performance of the company.
+A: Based on the excerpts, it appears that the plaintiff alleges that UiPath misled investors during the IPO by using a misleading metric, Annualized Renewal Run-Rate ("ARR"), to suggest that the company's business was growing and thriving. The plaintiff claims that UiPath failed to disclose material problems with its customer base, including stagnant or declining rates of growth, regular discounting of products, and the use of "ramping" contracts.
 
-The excerpts suggest that the plaintiff alleges that UiPath failed to disclose material problems with its business, including competition from other companies in the robotic process automation software market, which resulted in pricing pressures and negatively impacted the company's financial condition. The plaintiff also claims that UiPath's use of ARR was misleading because it did not accurately reflect the company's revenue or future prospects.
+The excerpts suggest that the plaintiff alleges that UiPath's disclosures were misleading because they did not accurately reflect the company's financial condition. The plaintiff points out that UiPath's quarterly filings with the SEC sometimes disclosed stagnant or declining rates of growth even though revenue and ARR had grown year-over-year. Additionally, the plaintiff claims that UiPath failed to disclose that customers were reducing their business or stopping doing business with the company.
 
-The court's analysis suggests that the plaintiff has failed to plead a plausible claim that UiPath's statements were misleading. The court notes that UiPath made fulsome disclosures about its financial condition and risk factors, including competition in the market, which would have allowed investors to track whether revenue was adversely affected by these factors. The court also points out that UiPath repeatedly warned investors not to rely on ARR as an indicator of future or expected results.
+However, the excerpts also suggest that UiPath made fulsome disclosures about its financial condition, including the use of ARR as a metric, and warned investors not to place undue reliance on it as an indicator of future revenue. The court notes that the plaintiff has failed to explain why UiPath was not free to develop a bespoke measurement tool and describe that tool to investors so long as it did so accurately.
 
-Therefore, based on the excerpts provided, it appears that the plaintiff's allegations of misrepresentation during the IPO are unfounded and lack merit.
+Overall, the answer best supported by the excerpts is that UiPath allegedly misled investors during the IPO by using a misleading metric (ARR) and failing to disclose material problems with its customer base.
 
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 10.61s | Retrieved chunks: 1 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 250*
+*Processing time: 17.14s | Retrieved chunks: 4 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 1000*
 
-A: Based on the provided excerpts, I will analyze the relevant information and provide an answer supported by the given text.
+A: Based on the excerpts provided, the court's reasons for dismissing the Section 11 claims are as follows:
 
-The question asks about the court's reasons for dismissing the Section 11 claims. To find the answer, I will review the excerpts carefully and identify key points related to this topic.
+The court dismissed the Section 11 claims because the defendants made fulsome disclosures about their financial condition and adverse circumstances that the company was experiencing. The prospectus contained robust descriptions of these risks, which were not misleading. Specifically, the court noted that investors were able to track, quarter by quarter, whether revenue was adversely affected by competition and the company's failures to expand its business.
 
-Excerpt:
-"For the following reasons, the motion is granted in part."
+The court also cited the Supreme Court's recent ruling in Macquarie, which held that an omission must be a "pure" omission for there to be liability under Section 11. Since the Offering Documents did not contain a pure omission, the defendants will not face a claim based on this theory.
 
-This excerpt does not directly address the dismissal of Section 11 claims. However, it implies that there are specific reasons stated elsewhere in the document that support the court's decision to grant the defendants' motion to dismiss some or all of the plaintiff's claims.
+Additionally, the court noted that because there is no § 11 claim, plaintiffs will have the burden of proving scienter and reliance, among other things. This suggests that the court was dismissing the Section 11 claims due to the lack of liability under this theory, rather than any affirmative defense raised by the defendants.
 
-To find the relevant information, I will look for subsequent excerpts that discuss the court's reasons for dismissing the Section 11 claims.
+Justification:
 
-Unfortunately, no additional excerpts were provided. Therefore, without more context, it is not possible to determine the specific reasons why the court dismissed the Section 11 claims.
+The most relevant portions supporting this conclusion are:
 
-In the absence of further information, my answer would be:
+* "In light of these robust disclosures, the risk factors identified in the prospectus were not misleading."
+* "Therefore, investors were able to track, quarter by quarter, whether revenue was adversely affected by competition and UiPath's failures to expand its business."
+* "The claims based on these statements must be dismissed."
 
-"I am unable to provide a supported conclusion because the necessary information is missing."
-
-Please note that this response does not imply that there are no reasons for dismissing the Section 11 claims. It simply means that without additional context, it is impossible to determine the specific reasons cited by the court.
+These passages suggest that the court found the disclosures made by the defendants to be sufficient and not misleading, which is a key factor in determining liability under Section 11. The court also cited the Supreme Court's ruling in Macquarie, which further supports its conclusion that there was no liability under this theory.
 
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 7.12s | Retrieved chunks: 2 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 500*
+*Processing time: 12.08s | Retrieved chunks: 6 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 1500*
 
-A: Based on the excerpts provided, the opinion states that because there is no § 11 claim, plaintiffs will have the burden of proving scienter and reliance, among other things. This suggests that the opinion is discussing the requirements for a Rule 10b-5 violation.
+A: Based on the excerpts provided, the opinion states that the plaintiff's claims of Rule 10b-5 violations must be dismissed. The court notes that the SAC (Stipulation of Alleged Conduct) alleges that UiPath was experiencing difficulties competing with Microsoft by March of 2022, and that customers were bringing up Microsoft's robots in "about half" of their sales calls. However, the court finds that these allegations are vague and do not plausibly plead that the prospectus statements were misleading.
 
-The relevant excerpt is:
+The opinion also notes that the SAC does not challenge as inaccurate the data presented in the graph showing six years of growth in ARR (Annual Recurring Revenue) data from 2016 to 2021. The court concludes that the risk factors identified in the prospectus were not misleading, and that investors were able to track, quarter by quarter, whether revenue was adversely affected by competition and UiPath's failures to expand its business.
 
-"Because there is no § 11 claim, plaintiffs will have the burden of proving scienter and reliance, among other things; the defendants will not face a strict liability claim."
-
-This statement implies that the court is requiring the plaintiff to demonstrate both scienter (knowledge or intent) and reliance in order to establish a Rule 10b-5 violation.
+Therefore, based on these excerpts, it appears that the opinion does not support a finding of Rule 10b-5 violations.
 
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 6.10s | Retrieved chunks: 2 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 500*
+*Processing time: 13.52s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the provided excerpt, I can answer the question as follows:
-
-The lawsuit was filed in 2023 against UiPath and two of its executives. The relevant information is found in the first sentence: "This securities litigation was filed in 2023 against UiPath and two of its executives."
-
-As for who was appointed lead plaintiff, there is no mention of this in the provided excerpt. Therefore, I cannot provide an answer to that part of the question.
+A: Based on the excerpts, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1.
 
 Justification:
 
-The relevant information about the lawsuit's filing date can be found in the first sentence: "This securities litigation was filed in 2023 against UiPath and two of its executives."
+The relevant excerpt is: "This action was filed on September 6, 2023 by Samhita Gera as a putative class action... As required by the Private Securities Litigation Reform Act of 1995 (“PSLRA”), the plaintiff published notice of the filing on September 6. By November 6, seven applications to be appointed lead plaintiff had been filed. On December 1, Paul Severt was appointed as lead plaintiff."
 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 7.15s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 5.14s | Retrieved chunks: 1 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 250*
 
-A: Based on the provided excerpts, there is no mention of an event occurring on September 27, 2022. The excerpts discuss various events and statements made by UiPath executives, as well as the company's financial performance, but do not specifically mention a date in September 2022.
+A: Based on the provided excerpts, there is no information about what happened on September 27, 2022. The excerpts only mention a securities litigation filed against UiPath and its executives in 2023, as well as a motion to dismiss the plaintiff's claims. There is no mention of any specific event or occurrence on September 27, 2022.
 
-Therefore, I would answer that nothing happened on September 27, 2022, based on the provided information.
+Therefore, I would answer that there is no information provided about what happened on September 27, 2022.
 
 ---
 
 
-**Total processing time for arctic-embed-33m: 128.32s**
+**Total processing time for arctic-embed-33m: 149.40s**
 
 ### Model: all-minilm-l6-v2
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 25.57s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 20.17s | Retrieved chunks: 7 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 1750*
 
-A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants violated Section 11 of the Securities Act because the Offering Documents contained material misstatements and omissions.
+A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants violated § 11 of the Securities Act because the Offering Documents contained material misstatements and omissions.
 
 The relevant excerpts are:
 
 * The plaintiff alleges that the defendants violated § 11 of the Securities Act because the Offering Documents contained material misstatements and omissions.
-* Section 11 provides in pertinent part: "In case any part of the registration statement, when such part became effective, contained an untrue statement or a material fact or omitted to state a material fact required to be stated therein or necessary to make the statements therein not misleading, any person acquiring such security may sue." 15 U.S.C. § 77k(a).
-* The Securities Act requires that "companies issuing securities make a 'full and fair disclosure of information' in connection with a public offering." New England Carpenters Guaranteed Annuity and Pension Funds v. DeCarlo, 80 F.4th 158, 168 (2d Cir. 2023), amended and superseded on rehearing, --- F.4th ---, 2023 WL 11965444 (Oct. 3, 2024) (citing Pinter v. Dahl, 486 U.S. 622, 646 (1988)).
+* Section 11 provides in pertinent part: "In case any part of the registration statement, when such part became effective, contained an untrue statement or a material fact or omitted to state a material fact required to be stated therein or necessary to make the statements therein not misleading, any person acquiring such security may sue." (15 U.S.C. § 77k(a))
+* The Securities Act requires that "companies issuing securities make a 'full and fair disclosure of information' in connection with a public offering." (New England Carpenters Guaranteed Annuity and Pension Funds v. DeCarlo, 80 F.4th 158, 168 (2d Cir. 2023), amended and superseded on rehearing, --- F.4th ---, 2023 WL 11965444 (Oct. 3, 2024))
 
 Therefore, the core allegation made by the plaintiff is that the defendants failed to provide a "full and fair disclosure of information" in connection with the public offering, resulting in material misstatements and omissions in the Offering Documents.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 14.84s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 4.42s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
 
-A: Based on the excerpts, the defendants in this case are:
+A: Based on the excerpts, the defendants in this securities litigation are:
 
-UiPath, Inc., Daniel Dines, and Ashim Gupta.
+UiPath and two of its executives.
 
-These individuals are mentioned as the defendants who have moved to dismiss each of the plaintiff's claims. The motion is granted in part, and the court has ruled that the defendants will not be exposed to a claim that the Offering Documents contained a pure omission, citing the Supreme Court's recent ruling in Macquarie.
+This conclusion is supported by the following relevant portions:
 
-Justification:
-
-The relevant excerpt states: "This securities litigation was filed in 2023 against UiPath and two of its executives. The defendants have moved to dismiss each of the plaintiff’s claims." This indicates that the defendants are UiPath, Inc., and two of its executives, namely Daniel Dines and Ashim Gupta.
-
-Additionally, the court's ruling on the motion to dismiss specifically mentions these three defendants: "The defendants will not be exposed to a claim that the Offering Documents contained a pure omission. 601 U.S. at 266." This further supports the conclusion that the defendants are UiPath, Inc., Daniel Dines, and Ashim Gupta.
+* The excerpt states: "The defendants have moved to dismiss each of the plaintiff's claims."
+* It also mentions that the motion is granted in part, indicating that there are multiple defendants involved.
 
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.97s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.39s | Retrieved chunks: 7 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 1750*
 
-A: The plaintiff raised several issues about the ARR (Annual Recurring Revenue) metric:
+A: Based on the excerpts provided, the plaintiff raised three main issues regarding the ARR (Annual Recurring Revenue) metric:
 
-1. The invoiced amounts included revenue that might never be realized in future years, such as from "ramping" licenses that added more Robots in the final month or months of a license.
-2. The ARR metric was artificially inflated because it included non-recurring revenue, such as one-time fees for implementation and service.
-3. The definition of ARR was misleading because UiPath described it as a "key metric" and a better indicator of its financial health than GAAP metrics.
+1. **Inflated revenue**: The plaintiff argued that the invoiced amounts included revenue that might never be realized in future years, such as customers not renewing their licenses or choosing not to use additional Robots added during the final months of a license.
+2. **Non-recurring revenue**: The plaintiff pointed out that ARR included non-recurring revenue, such as one-time fees for implementation and service, which inflated the metric.
+3. **Misleading definition**: The plaintiff claimed that the definition of ARR was misleading because it described it as a "key metric" and a better indicator of UiPath's financial health than GAAP metrics.
 
-These issues were raised in the SAC (Statement of Alleged Claims) and were addressed by the court in this opinion.
+These issues were raised in the SAC (Statement of Alleged Claims) and are discussed in the Opinion, which concludes that the plaintiff has failed to plausibly plead that the defendants' statements regarding ARR were either false or misleading.
 
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 14.40s | Retrieved chunks: 2 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 500*
+*Processing time: 24.24s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
-A: Based on the excerpts, it appears that UiPath allegedly misled investors during the IPO by failing to disclose the difficulties it was encountering in marketing its products and competitive environment at the time of the offering. This is inferred from the following points:
+A: Based on the excerpts, it appears that UiPath allegedly misled investors during the IPO by:
 
-* The plaintiff alleges that UiPath misrepresented the difficulties it was encountering in marketing its products and competitive environment when it published the Offering Documents for its IPO on April 21, 2021.
-* The Offering Documents stated that "markets in which we participate are competitive and, if we do not compete effectively, our business, financial condition, and results of operations could be harmed." However, this language did not provide a complete picture of the challenges UiPath was facing at the time.
+1. Using a misleading metric, Annualized Renewal Run-Rate ("ARR"), to suggest that its financial outlook was stronger than it actually was.
+2. Claiming that its "land-and-expand" business model was successful when it was not.
+3. Understating the competitive threats that UiPath faced in the RPA market, especially from Microsoft Corporation.
+4. Issuing risk disclosures that were misleading because they framed events that had already occurred as merely hypothetical.
 
-The excerpts suggest that the truth about UiPath's difficulties began to emerge over time, starting with partial disclosures in June 2021. This implies that investors were initially misled by the Offering Documents and only later became aware of the challenges UiPath faced.
+These allegations are based on the plaintiff's claims and are taken as true for purposes of this motion. The defendants have moved to dismiss each of the plaintiff's claims, arguing that the risk factors identified in the prospectus were not misleading and that investors were able to track UiPath's financial condition quarter by quarter.
 
-Therefore, the answer is:
+Justification:
 
-UiPath allegedly misled investors during the IPO by failing to disclose the difficulties it was encountering in marketing its products and competitive environment at the time of the offering.
+The excerpts suggest that UiPath allegedly misled investors during the IPO by presenting a rosier picture of its financial outlook than was actually the case. The plaintiff alleges that UiPath used ARR as a metric to suggest that its revenue growth was stronger than it actually was, when in fact the company was experiencing difficulties maintaining its growth. Additionally, the plaintiff claims that UiPath overstated the success of its "land-and-expand" business model and understated the competitive threats it faced from Microsoft.
 
-Justification: The excerpts suggest that the plaintiff's allegations are based on the idea that the Offering Documents did not provide a complete picture of the challenges UiPath faced, and that this information only began to emerge over time. This implies that investors were initially misled by the Offering Documents and only later became aware of the difficulties UiPath was facing.
+The excerpts also suggest that UiPath's risk disclosures were misleading because they framed events that had already occurred as merely hypothetical. For example, the prospectus described the RPA industry generally and the products that UiPath offers, but did not disclose the specific challenges that the company was facing at the time of the IPO.
+
+Overall, the excerpts suggest that UiPath allegedly misled investors during the IPO by presenting a misleading picture of its financial outlook and understating the competitive threats it faced.
 
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 17.04s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 16.76s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, the court dismissed the Section 11 claims because:
 
@@ -213,33 +206,28 @@ The court also noted that the plaintiff's reliance on cases permitting the subst
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 20.26s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 7.29s | Retrieved chunks: 2 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 500*
 
-A: Based on the excerpts provided, the opinion states that:
+A: Based on the provided excerpts, there is no mention of Rule 10b-5 violations. The discussion focuses on jurisdictional defects, statute of repose, and relation back doctrine under Rule 15(c) in the context of Securities Act claims (§ 11 and § 13). Therefore, I conclude that the opinion does not address Rule 10b-5 violations.
 
-* Rule 10b-5(b) makes it unlawful to omit material facts in connection with buying or selling securities when that omission renders statements made misleading. (Macquarie Infrastructure Corp. v. Moab Partners, L.P., 601 U.S. at 259)
-* A "pure omission" under Rule 10b-5(b) occurs when a speaker says nothing, in circumstances that do not give any particular meaning to that silence. (Id. at 263)
-* Even a duty to disclose certain information does not automatically render silence misleading under Rule 10b-5(b). Rather, Rule 10b-5(b) requires identifying affirmative assertions before determining if other facts are needed to make those statements "not misleading." (Id. at 264)
-
-In summary, the opinion clarifies that a violation of Rule 10b-5(b) occurs when there is an omission of material facts that renders statements made misleading, and not just because of a duty to disclose information.
+Justification: The excerpts primarily discuss the plaintiff's attempts to revive time-barred claims and the application of American Pipe tolling. There is no mention of Rule 10b-5 or any related concepts.
 
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 16.84s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 11.60s | Retrieved chunks: 8 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2000*
 
-A: Based on the excerpts provided, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
+A: Based on the excerpts, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
 Justification:
 
-The relevant excerpt is: "This action was filed on September 6, 2023 by Samhita Gera as a putative class action... As required by the Private Securities Litigation Reform Act of 1995 (“PSLRA”), the plaintiff published notice of the filing on September 6. By November 6, seven applications to be appointed lead plaintiff had been filed. On December 1, Paul Severt was appointed as lead plaintiff."
-
-This excerpt clearly states that the lawsuit was filed on September 6, 2023 and that Paul Severt was appointed as lead plaintiff on December 1, 2023.
+* The first excerpt states that "This action was filed on September 6, 2023 by Samhita Gera as a putative class action."
+* The second excerpt mentions that "On December 1, Paul Severt was appointed as lead plaintiff."
 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 8.95s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 9.19s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the provided excerpts, there is no mention of any event occurring on September 27, 2022. The excerpts primarily discuss UiPath's earnings conference calls, financial results, and presentations at various conferences during the Class Period (which appears to be a period of time prior to the filing of the securities litigation in 2023). There is also discussion about the motion to dismiss certain claims brought by the plaintiff.
 
@@ -248,12 +236,12 @@ Therefore, I would answer that there is no information provided regarding what h
 ---
 
 
-**Total processing time for all-minilm-l6-v2: 131.86s**
+**Total processing time for all-minilm-l6-v2: 107.06s**
 
 ### Model: bge-small-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 13.03s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.74s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants violated § 11 of the Securities Act because the Offering Documents contained material misstatements and omissions. Specifically, the plaintiff alleges that the risk factors disclosed in the Offering Documents were misleading because two of the risks which had already materialized were described as hypothetical risks.
 
@@ -273,7 +261,7 @@ These individuals are mentioned as being sued by the plaintiff for allegedly vio
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 14.76s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 14.70s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
@@ -286,7 +274,7 @@ The plaintiff argued that these issues made the ARR metric artificially inflated
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 17.95s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 49.96s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, it appears that UiPath allegedly misled investors during the IPO in several ways:
 
@@ -300,7 +288,7 @@ These allegations are based on statements made by UiPath in its offering documen
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 21.68s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 22.95s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, the court dismissed the Section 11 claims because:
 
@@ -316,7 +304,7 @@ Overall, the court dismissed the Section 11 claims because they were untimely an
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 23.53s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 204.30s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the opinion states that to state a claim for material misrepresentations or omissions under Rule 10b-5(b), a plaintiff must plead:
 
@@ -336,7 +324,7 @@ In summary, the opinion emphasizes the importance of pleading material misrepres
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 12.82s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.71s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023, by Samhita Gera as a putative class action. Paul Severt was later appointed as lead plaintiff on December 1, 2023.
 
@@ -347,19 +335,19 @@ The relevant excerpt is: "This action was filed on September 6, 2023 by Samhita 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 7.80s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 8.02s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, what happened on September 27, 2022, is that UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform . . . in ways that clearly resonate with our customers."
 
 ---
 
 
-**Total processing time for bge-small-en: 118.87s**
+**Total processing time for bge-small-en: 334.68s**
 
 ### Model: bge-base-en
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 19.36s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 21.06s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants (UiPath's management) made misleading statements and omissions in the Offering Documents, which masked UiPath's difficulties in gaining and retaining customers and the impact of competitors such as Microsoft. The plaintiff alleges that these misstatements and omissions violated Section 11 of the Securities Act, which requires companies to make a "full and fair disclosure of information" in connection with a public offering.
 
@@ -375,7 +363,7 @@ The plaintiff argues that these misstatements and omissions caused investors to 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 9.92s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 10.25s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
@@ -390,7 +378,7 @@ Specifically, excerpt 2 states: "The two individual defendants are Daniel Dines,
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.04s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.83s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: The plaintiff raised several issues about the ARR (Annualized Renewal Run-Rate) metric:
 
@@ -403,7 +391,7 @@ The plaintiff argued that these issues made the ARR metric artificially inflated
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 17.70s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 17.20s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, it appears that UiPath allegedly misled investors during the IPO by:
 
@@ -419,7 +407,7 @@ The excerpts also suggest that UiPath repeatedly warned investors about the limi
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 18.53s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 18.55s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the court's reasons for dismissing the Section 11 claims are:
 
@@ -434,7 +422,7 @@ Overall, the court found that the plaintiff did not adequately plead a Section 1
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 18.54s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 19.37s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts from Local 773 Pension Fund v. Danske Bank A/S, I conclude that the opinion states that:
 
@@ -450,14 +438,14 @@ The opinion cites Macquarie Infrastructure Corp. v. Moab Partners, L.P., 601 U.S
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 9.99s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 10.35s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 13.96s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 14.38s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, it appears that on September 27, 2022, UiPath hosted an Analyst/Investor day during which Robert Enslin stated that "[w]e haven't been efficient in how we sell, and we aren't delivering the platform... in ways that clearly resonate with our customers." This statement suggests that UiPath was acknowledging difficulties in its sales strategy and customer engagement.
 
@@ -470,19 +458,19 @@ Therefore, the answer to the question "What happened on September 27, 2022?" is 
 ---
 
 
-**Total processing time for bge-base-en: 121.04s**
+**Total processing time for bge-base-en: 124.99s**
 
 ### Model: nomic-embed-text
 
 **Q: What was the core allegation made by the plaintiff?**
-*Processing time: 13.46s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.73s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the core allegation made by the plaintiff is that the defendants, UiPath and its executives, omitted material information from the Offering Documents in violation of a duty to disclose. This omission allegedly occurred in 2021, when the Offering Documents were filed, and the plaintiff claims that this omission was a "known trend" that UiPath had been facing problems competing with Microsoft since 2020.
 
 ---
 
 **Q: Who were the defendants in this case?**
-*Processing time: 6.33s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
+*Processing time: 6.35s | Retrieved chunks: 6 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 1500*
 
 A: Based on the excerpts provided, the defendants in this case are:
 
@@ -493,7 +481,7 @@ These individuals and the company UiPath, Inc. have moved to dismiss each of the
 ---
 
 **Q: What issues did the plaintiff raise about the ARR metric?**
-*Processing time: 13.19s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 13.06s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the plaintiff raised several issues regarding the ARR (Annualized Revenue Run Rate) metric:
 
@@ -506,7 +494,7 @@ These issues were raised in the SAC (Statement of Alleged Claims) and are discus
 ---
 
 **Q: How did UiPath allegedly mislead investors during the IPO?**
-*Processing time: 22.29s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 22.04s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts, it appears that the SAC (Securities Class Action) alleges that UiPath misled investors during the IPO by making four sets of misrepresentations:
 
@@ -526,7 +514,7 @@ Therefore, it appears that the court has granted the motion to dismiss some of t
 ---
 
 **Q: What were the court's reasons for dismissing the Section 11 claims?**
-*Processing time: 21.28s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 20.87s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the court dismissed the Section 11 claims because they were time-barred. The plaintiff did not plead a plausible claim under Section 11, and the original complaint filed in September 2023 did not include a Section 11 claim. Therefore, the one-year statute of limitations period began when the plaintiff discovered or should have discovered the untrue statement or omission, which was after the filing of the original complaint.
 
@@ -539,7 +527,7 @@ In summary, the court dismissed the Section 11 claims because they were time-bar
 ---
 
 **Q: What does the opinion say about Rule 10b-5 violations?**
-*Processing time: 25.46s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 25.18s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the provided excerpts from Local 773 Pension Fund v. Danske Bank A/S, here is my analysis:
 
@@ -558,7 +546,7 @@ Therefore, based on these excerpts, I conclude that:
 ---
 
 **Q: When was the lawsuit filed and who was appointed lead plaintiff?**
-*Processing time: 16.43s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
+*Processing time: 16.34s | Retrieved chunks: 10 | Query complexity: medium | Adaptive k: 10 | Est. tokens: 2500*
 
 A: Based on the excerpts provided, the lawsuit was filed on September 6, 2023 by Samhita Gera as a putative class action. Paul Severt was appointed as lead plaintiff on December 1, 2023.
 
@@ -571,7 +559,7 @@ This excerpt clearly states that the lawsuit was filed on September 6, 2023 and 
 ---
 
 **Q: What happened on September 27, 2022?**
-*Processing time: 4.29s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
+*Processing time: 4.31s | Retrieved chunks: 2 | Query complexity: simple | Adaptive k: 6 | Est. tokens: 500*
 
 A: Based on the provided excerpts, there is no information about what happened on September 27, 2022. The excerpts only mention events that occurred before or after this date, such as the IPO on April 23, 2021, and post-IPO filings and statements.
 
@@ -581,5 +569,5 @@ Therefore, I would answer:
 
 ---
 
-**Total processing time for nomic-embed-text: 122.73s**
+**Total processing time for nomic-embed-text: 121.87s**
 

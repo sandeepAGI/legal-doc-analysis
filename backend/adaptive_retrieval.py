@@ -13,6 +13,7 @@ class AdaptiveRetriever:
     """
     
     # Model-specific similarity score thresholds
+    # Updated with empirical analysis from test_similarity_thresholds.py
     SCORE_THRESHOLDS = {
         'bge-small-en': {
             'excellent': 0.30,
@@ -31,6 +32,18 @@ class AdaptiveRetriever:
             'good': 460,
             'fair': 490,
             'poor': 520
+        },
+        'arctic-embed-33m': {
+            'excellent': 0.560,
+            'good': 0.646,
+            'fair': 0.708,
+            'poor': 0.757
+        },
+        'all-minilm-l6-v2': {
+            'excellent': 0.912,
+            'good': 1.032,
+            'fair': 1.155,
+            'poor': 1.273
         }
     }
     
